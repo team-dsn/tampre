@@ -1,0 +1,35 @@
+[
+    {
+        "model": "webapi.userInfo",
+        "pk": 1,
+        "fields": {
+            "user_id": "1234567890",
+            "user_name": "田辺育暉",
+            "profile_image_url": "https://naruki.image.com",
+            "wish_list_url": "https://naruki.wl.com",
+            "created_at": "2020-08-09 00:00:00"
+        }
+    },
+    {
+        "model": "webapi.userInfo",
+        "pk": 2,
+        "fields": {
+            "user_id": "1234567891",
+            "user_name": "荒木大晴",
+            "profile_image_url": "https://daisei.image.com",
+            "wish_list_url": "https://daisei.wl.com",
+            "created_at": "2020-08-10 00:00:00"
+        }
+    },
+    {
+        "model": "webapi.userInfo",
+        "pk": 3,
+        "fields": {
+            "user_id": "1234567892",
+            "user_name": "澤弘樹",
+            "profile_image_url": "https://hiroki.image.com",
+            "wish_list_url": "https://hiroki.wl.com",
+            "created_at": "2020-08-11 00:00:00"
+        }
+    }
+]
