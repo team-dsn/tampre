@@ -20,24 +20,27 @@ class Calendar extends StatelessWidget {
             return CalendarCarousel<Event>(
               onDayPressed: model.onDayPressed,
               weekendTextStyle: TextStyle(color: Colors.red),
-              thisMonthDayBorderColor: Colors.grey,
               weekFormat: false,
               height: MediaQuery.of(context).size.height - Scaffold.of(context).appBarMaxHeight,
               selectedDateTime: model.currentDate,
-              daysHaveCircularBorder: false,
+              daysHaveCircularBorder: null,
               customGridViewPhysics: NeverScrollableScrollPhysics(),
               markedDateShowIcon: true,
               markedDateIconMaxShown: 2,
               todayTextStyle: TextStyle(
-                color: Colors.blue,
+                color: Colors.white,
               ),
+              todayButtonColor: Colors.blue,
               markedDateIconBuilder: (event) {
                 return event.icon;
               },
-              todayBorderColor: Colors.green,
-              markedDateMoreShowTotal: false);
-            },
-          ),
+              todayBorderColor: Colors.transparent,
+              selectedDayBorderColor: Colors.transparent,
+              selectedDayButtonColor: Colors.blue[200],
+              markedDateMoreShowTotal: false,
+              markedDatesMap: model.markedDateMap,
+            );
+          },),
         ),
       )
     );
