@@ -23,7 +23,6 @@ class Profile extends StatelessWidget {
           SpaceBox.height(30),
           Container(
             width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.width * 0.6,
             padding: EdgeInsets.all(20),
             color: Colors.grey[300],
             child: Column(
