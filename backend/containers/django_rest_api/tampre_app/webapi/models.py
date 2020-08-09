@@ -1,6 +1,8 @@
 from django.db import models
 
 class UserInfo(models.Model):
+    """ ユーザ情報モデル """
+
     user_id = models.CharField(max_length=64)
     user_name = models.CharField(max_length=64)
     profile_image_url = models.CharField(max_length=256)
