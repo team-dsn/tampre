@@ -17,7 +17,7 @@ paths:
     get:
       tags:
       - "friends"
-      summary: "friend情報を取得"
+      summary: "friend情報のリストを取得"
       description: ""
       consumes:
       - "application/json"
@@ -31,34 +31,13 @@ paths:
         type: "string"
       responses:
         "200":
-          description: "get friends info"
+          description: "get friend info"
           schema:
-            $ref: "#/definitions/Friends"
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
         "404":
           description: "No Data"
-  /friends/request/{userId}/{friendId}:
-    post:
-      tags:
-      - "friends"
-      summary: "友達申請を送る"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "userId"
-        in: "path"
-        description: "userId"
-        required: true
-        type: "string"
-      - name: "friendId"
-        in: "path"
-        description: "friendId"
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "successful operation"
-        "400":
-          description: "Invalid request"
   /friends/{userId}/{friendId}:
     delete:
       tags:
@@ -217,11 +196,34 @@ paths:
           description: "successful operation"
         "400":
           description: "Invalid value"
-  /user/requests/{userId}:
+  /user/friendRequest/{userId}/{friendId}:
+    post:
+      tags:
+      - "user"
+      summary: "友達申請を送る"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "userId"
+        required: true
+        type: "string"
+      - name: "friendId"
+        in: "path"
+        description: "friendId"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid request"
+  /user/friendRequested/{userId}:
     get:
       tags:
       - "user"
-      summary: "友達申請のリストを取得"
+      summary: "自分に来ている友達申請のリストを取得"
       description: "毎回、アプリ起動時に呼び出し、友達申請が来ていればその情報を取得する。なければ空のリストを返す"
       produces:
       - "application/json"
@@ -235,15 +237,17 @@ paths:
         description: "List of user object"
         required: true
         schema:
-          $ref: "#/definitions/Friends"
+          type: "array"
+          items:
+            $ref: "#/definitions/User"
       responses:
         default:
           description: "successful operation"
-  /user/requests/{userId}/{friendId}:
+  /user/friendRequested/{userId}/{friendId}:
     post:
       tags:
       - "user"
-      summary: "自分に来ていた友達申請を許可する"
+      summary: "自分に来ている友達申請に返答する"
       description: "trueで許可、falseで拒否"
       produces:
       - "application/json"
@@ -270,21 +274,6 @@ paths:
           description: "successful operation"
   
 definitions:
-  Friends:
-    type: "array"
-    items:
-      type: "object"
-      properties:
-        userId:
-          type: "string"
-        userName:
-          type: "string"
-        birthday:
-          type: "integer"
-          format: "int64"
-        wishListUrl:
-          type: "string"
-          format: "url"
   User:
     type: "object"
     properties:
@@ -292,10 +281,12 @@ definitions:
         type: "string"
       userName:
         type: "string"
+      birthday:
+          type: "integer"
+          format: "int64"
       wishListUrl:
         type: "string"
         format: "url"
-      address:
-        type: "string"
-      zipCode:
-        type: "string"
+      userImageUrl:
+          type: "string"
+          format: "url"
