@@ -11,6 +11,8 @@ services:
     build:
       context: .
       dockerfile: DockerfilePython
+    # サービス起動後に入力されるコマンドを設定
+    command: python tampre_app/manage.py runserver 0:8000
     volumes:
       - ./django_rest_api:/django_rest_api
     tty: true
@@ -18,5 +20,6 @@ services:
       - 8000:8000
     depends_on:
       - db
+    restart: always
 volumes:
   django_data_volume:
