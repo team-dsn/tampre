@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:provider/provider.dart';
 
 import 'package:tampre/model/friend_add_model.dart';
 
-
 class FriendAdd extends StatelessWidget {
   String id;
- 
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +80,7 @@ class FriendAdd extends StatelessWidget {
       )
     );
   }
-
 }
-
 
 class SpaceBox extends SizedBox {
   SpaceBox({double width = 8, double height = 8})
@@ -96,5 +89,3 @@ class SpaceBox extends SizedBox {
   SpaceBox.width([double value = 8]) : super(width: value);
   SpaceBox.height([double value = 8]) : super(height: value);
 }
-
-
