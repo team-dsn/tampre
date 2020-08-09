@@ -37,7 +37,7 @@ paths:
         "404":
           description: "No Data"
   /friends/request/{userId}/{friendId}:
-    get:
+    post:
       tags:
       - "friends"
       summary: "友達申請を送る"
