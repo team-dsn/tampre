@@ -1,0 +1,301 @@
+swagger: "2.0"
+info:
+  description: "TAMPRE用のAPI"
+  version: "1.0.0"
+  title: "TAMPRE"
+host: "tampre"
+basePath: "/v1"
+tags:
+- name: "friends"
+  description: "friends管理"
+- name: "user"
+  description: "user情報管理"
+schemes:
+- "https"
+paths:
+  /friends/{userId}:
+    get:
+      tags:
+      - "friends"
+      summary: "friend情報を取得"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "userId"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "get friends info"
+          schema:
+            $ref: "#/definitions/Friends"
+        "404":
+          description: "No Data"
+  /friends/request/{userId}/{friendId}:
+    get:
+      tags:
+      - "friends"
+      summary: "友達申請を送る"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "userId"
+        required: true
+        type: "string"
+      - name: "friendId"
+        in: "path"
+        description: "friendId"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid request"
+  /friends/{userId}/{friendId}:
+    delete:
+      tags:
+      - "friends"
+      summary: "友達を削除する"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "userId"
+        required: true
+        type: "string"
+      - name: "friendId"
+        in: "path"
+        description: "friendId"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid request"
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "User情報の登録"
+      description: "User情報を登録する"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userName"
+        in: "query"
+        description: "ユーザ名"
+        required: true
+        type: "string"
+      - name: "birthDay"
+        in: "query"
+        description: "誕生日"
+        required: true
+        type: "string"
+        format: "date"
+        pattern: "YYYY-MM-DD"
+        minLength: 0
+        maxLength: 10
+      - name: "wishListUrl"
+        in: "query"
+        description: "欲しいものリストのURL"
+        required: true
+        type: "string"
+        format: "url"
+      - name: "address"
+        in: "query"
+        description: "家の住所"
+        required: true
+        type: "string"
+        format: "url"
+      - name: "zipcode"
+        in: "query"
+        description: "郵便番号"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              userId:
+                type: "integer"
+                format: "int64"
+                example: "12345678"
+        "400":
+          description: "Invalid value"
+  /user/{userId}:
+    get:
+      tags:
+      - "user"
+      summary: "User情報の取得"
+      description: "User情報を取得する"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "userId"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "400":
+          description: "Invalid value"
+    put:
+      tags:
+      - "user"
+      summary: "User情報の更新"
+      description: "User情報を更新する"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "userId"
+        required: true
+        type: "string"
+      - name: "userName"
+        in: "query"
+        description: "ユーザ名"
+        type: "string"
+      - name: "birthDay"
+        in: "query"
+        description: "誕生日"
+        type: "string"
+        format: "date"
+        pattern: "YYYY-MM-DD"
+        minLength: 0
+        maxLength: 10
+      - name: "wishListUrl"
+        in: "query"
+        description: "欲しいものリストのURL"
+        type: "string"
+        format: "url"
+      - name: "address"
+        in: "query"
+        description: "家の住所"
+        type: "string"
+        format: "url"
+      - name: "zipcode"
+        in: "query"
+        description: "郵便番号"
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid value"
+    delete:
+      tags:
+      - "user"
+      summary: "User情報の削除"
+      description: "User情報を削除する"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "userId"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid value"
+  /user/requests/{userId}:
+    get:
+      tags:
+      - "user"
+      summary: "友達申請のリストを取得"
+      description: "毎回、アプリ起動時に呼び出し、友達申請が来ていればその情報を取得する。なければ空のリストを返す"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "userId"
+        type: "string"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "List of user object"
+        required: true
+        schema:
+          $ref: "#/definitions/Friends"
+      responses:
+        default:
+          description: "successful operation"
+  /user/requests/{userId}/{friendId}:
+    post:
+      tags:
+      - "user"
+      summary: "自分に来ていた友達申請を許可する"
+      description: "trueで許可、falseで拒否"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "userId"
+        type: "string"
+        required: true
+      - in: "path"
+        name: "friendId"
+        type: "string"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "List of user object"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            accept:
+              type: "boolean"
+      responses:
+        default:
+          description: "successful operation"
+  
+definitions:
+  Friends:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        userId:
+          type: "string"
+        userName:
+          type: "string"
+        birthday:
+          type: "integer"
+          format: "int64"
+        wishListUrl:
+          type: "string"
+          format: "url"
+  User:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+      userName:
+        type: "string"
+      wishListUrl:
+        type: "string"
+        format: "url"
+      address:
+        type: "string"
+      zipCode:
+        type: "string"
