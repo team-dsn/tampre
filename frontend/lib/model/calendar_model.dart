@@ -11,36 +11,25 @@ class CalendarModel extends ChangeNotifier {
   EventList<Event> markedDateMap = new EventList<Event>();
 
   CalendarModel(){
-    markedDateMap.addAll(new DateTime(2020, 8, 18), [
-      new Event(
-        date: new DateTime(2020, 8, 18),
-        title: 'Event 2',
-        icon: Container(
-          decoration: new BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(1000)),
-          border: Border.all(color: Colors.blue, width: 2.0)),
-          child: new CircleAvatar(
-            backgroundImage: AssetImage(global.icons[0]),
+    global.users.forEach((user) {
+      print(user.birthday.month);
+      print(user.birthday.day);
+      markedDateMap.addAll(new DateTime(2020, user.birthday.month, user.birthday.day), [
+        new Event(
+          date: new DateTime(2020, 8, 18),
+          title: 'Event 2',
+          icon: Container(
+            decoration: new BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(1000)),
+            border: Border.all(color: Colors.blue, width: 2.0)),
+            child: new CircleAvatar(
+              backgroundImage: AssetImage(user.icon),
+            ),
           ),
         ),
-      ),
-    ]);
-    markedDateMap.addAll(new DateTime(2020, 8, 23), [
-      new Event(
-        date: new DateTime(2020, 8, 23),
-        title: 'Event 2',
-        icon: Container(
-          decoration: new BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(1000)),
-          border: Border.all(color: Colors.blue, width: 2.0)),
-          child: new CircleAvatar(
-            backgroundImage: AssetImage(global.icons[1]),
-          ),
-        ),
-      ),
-    ]);
+      ]);
+    });
   }
 
   void onDayPressed(DateTime date, List<Event> events) {

@@ -1,10 +1,18 @@
 {
   "users": [
     {
-      "image": "images/newton.jpeg"
+      "image": "images/newton.jpeg",
+      "birthday": {
+        "month": 8,
+        "day": 13
+      }
     },
     {
-      "image": "images/aristoteres.png"
+      "image": "images/aristoteres.png",
+      "birthday": {
+        "month": 8,
+        "day": 25
+      }
     }
   ]
 }
