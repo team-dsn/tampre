@@ -17,6 +17,7 @@ class Home extends StatelessWidget {
         body: Consumer<HomeModel>(
           builder: (context, model, child) {
             final users = model.users;
+            model.sort();
             final userTiles = users.map((user) =>
                 ListTile(
                   onTap: () async {
@@ -29,7 +30,7 @@ class Home extends StatelessWidget {
                     leading: CircleAvatar(
                       backgroundImage: AssetImage(user.icon), // no matter how big it is, it won't overflow
                     ),
-                    title: Text(user.birthday),
+                    title: Text('${user.birthday.month}/${user.birthday.day}'),
                     subtitle: Text(user.userName)
             )).toList();
             return ListView(

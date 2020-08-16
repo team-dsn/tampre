@@ -47,7 +47,7 @@ class Profile extends StatelessWidget {
                       Text('誕生日:',
                         style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
                       ),
-                      Text( isFriend ? user.birthday : '自分の誕生日',
+                      Text( isFriend ? '${user.birthday.month}/${user.birthday.day}' : '自分の誕生日',
                           style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
                       ),
                   ]

@@ -1,11 +1,25 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
+import 'package:tampre/view/component/global.dart' as global;
 import 'package:tampre/view/footer.dart';
 
 void main() async {
-  await Future.delayed(Duration(seconds: 5));
-
+  WidgetsFlutterBinding.ensureInitialized(); 
+  await loadJsonAsset();
   runApp(App());
+}
+
+Future<void> loadJsonAsset() async {
+  String loadData = await rootBundle.loadString('json/data.json');
+  final jsonResponse = json.decode(loadData);
+  jsonResponse.forEach((key,value) {
+    for(dynamic v in value){
+      global.users.add(global.TmpUser(birthday: DateTime(1995, v['birthday']['month'], v['birthday']['day']), icon: v['image']));
+    }
+  });
 }
 
 class App extends StatelessWidget {

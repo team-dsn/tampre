@@ -26,6 +26,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - json/
 
 flutter_native_splash:
   image: "images/gift.png" 
