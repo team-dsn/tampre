@@ -1,5 +1,11 @@
 ## MAC
 .DS_Store
 
-## cache
+### Django ###
 __pycache__
+*.log
+*.pot
+*.pyc
+
+# vscodeの設定ファイルをgit管理対象から外す
+.vscode/
