@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:provider/provider.dart';
+import 'package:quartet/quartet.dart' show slice;
 
 import 'package:tampre/model/calendar_model.dart';
+import 'package:tampre/view/component/event_item.dart';
+import 'package:tampre/view/component/user.dart';
+import 'package:tampre/view/profile_route.dart';
 
 class Calendar extends StatelessWidget {
   @override
@@ -17,8 +20,17 @@ class Calendar extends StatelessWidget {
         ),
         body: Container(
           child: Consumer<CalendarModel>(builder: (context, model, child) {
-            return CalendarCarousel<Event>(
-              onDayPressed: model.onDayPressed,
+            return CalendarCarousel<EventItem>(
+              onDayPressed: (date, events) {
+                if(events.length == 1) {
+                  String month = slice('0' + events[0].date.month.toString(), -2);
+                  String day = slice('0' + events[0].date.day.toString(), -2);
+                  Navigator.push (
+                    context,
+                    MaterialPageRoute(builder: (context) => Profile(user: User(id: '1', userName: events[0].title, birthday: '2020${month}${day}', icon: events[0].iconPath)),)
+                  );
+                }
+              },
               weekendTextStyle: TextStyle(color: Colors.red),
               weekFormat: false,
               height: MediaQuery.of(context).size.height - Scaffold.of(context).appBarMaxHeight,

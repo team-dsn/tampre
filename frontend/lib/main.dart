@@ -17,7 +17,7 @@ Future<void> loadJsonAsset() async {
   final jsonResponse = json.decode(loadData);
   jsonResponse.forEach((key,value) {
     for(dynamic v in value){
-      global.users.add(global.TmpUser(birthday: DateTime(1995, v['birthday']['month'], v['birthday']['day']), icon: v['image']));
+      global.users.add(global.TmpUser(birthday: DateTime(1995, int.parse(v['birthday']['month']), int.parse(v['birthday']['day'])), icon: v['image'], name: v['name']));
     }
   });
 }
