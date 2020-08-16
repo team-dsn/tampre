@@ -5,6 +5,8 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
+import 'package:tampre/view/component/global.dart' as global;
+
 
 class CalendarModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now();
@@ -14,9 +16,8 @@ class CalendarModel extends ChangeNotifier {
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(1000)),
         border: Border.all(color: Colors.blue, width: 2.0)),
-    child: new Icon(
-      Icons.person,
-      color: Colors.amber,
+    child: new CircleAvatar(
+      backgroundImage: AssetImage(global.icons),
     ),
   );
 
