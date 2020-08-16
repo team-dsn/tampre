@@ -1,26 +1,40 @@
 import 'package:flutter/material.dart';
 
+import 'component/user.dart';
+
 class Profile extends StatelessWidget {
+  Profile({this.user});
+  final User user;
+
+
   @override
   Widget build(BuildContext context) {
+    final bool isFriend = user != null;
     return Scaffold(
       appBar: AppBar(
         title: Text("プロフィール"),
       ),
       body: Center(
         child: Column(children: <Widget>[
-          SpaceBox.height(10),
-          Text('名前',
+          SizedBox(height: 8,),
+          Text( isFriend ? user.userName : 'MyName',
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * 0.1,
               )),
-          SpaceBox.height(10),
-          Image.asset(
-            'images/aristoteres.png',
+          SizedBox(height: 10,),
+          isFriend
+          ? Image.asset(
+            user.icon,
             width: MediaQuery.of(context).size.width * 0.45,
             height:MediaQuery.of(context).size.width * 0.45,
-          ),
-          SpaceBox.height(30),
+          )
+           : Container(
+             color: Colors.grey,
+              child: Text('自分の写真'),
+              width: MediaQuery.of(context).size.width * 0.45,
+              height:MediaQuery.of(context).size.width * 0.45,
+           ),
+          SizedBox(height: 30,),
           Container(
             width: MediaQuery.of(context).size.width * 0.8,
             padding: EdgeInsets.all(20),
@@ -28,9 +42,15 @@ class Profile extends StatelessWidget {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    '誕生日:',
-                    style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
+                  Row(
+                    children: <Widget>[
+                      Text('誕生日:',
+                        style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
+                      ),
+                      Text( isFriend ? user.birthday : '自分の誕生日',
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
+                      ),
+                  ]
                   ),
                   Text('欲しいものリスト:', style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05)),
                 ]),
@@ -39,12 +59,4 @@ class Profile extends StatelessWidget {
       ),
     );
   }
-}
-
-class SpaceBox extends SizedBox {
-  SpaceBox({double width = 8, double height = 8})
-      : super(width: width, height: height);
-
-  SpaceBox.width([double value = 8]) : super(width: value);
-  SpaceBox.height([double value = 8]) : super(height: value);
 }

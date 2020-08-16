@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tampre/model/home_model.dart';
-
 import 'package:tampre/view/component/image_tile.dart';
+
+import 'profile_route.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -16,9 +17,21 @@ class Home extends StatelessWidget {
         body: Consumer<HomeModel>(
           builder: (context, model, child) {
             final users = model.users;
-            final userTiles = users.map((user) => ImageTile(
-              icon: user.icon, username: user.userName, birthday: user.birthday,
-            ),).toList();
+            final userTiles = users.map((user) =>
+                ListTile(
+                  onTap: () async {
+                    //todo:画面遷移
+                    await Navigator.push (
+                    context,
+                    MaterialPageRoute(builder: (context) => Profile(user:user),)
+                      );
+                    },
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(user.icon), // no matter how big it is, it won't overflow
+                    ),
+                    title: Text(user.birthday),
+                    subtitle: Text(user.userName)
+            )).toList();
             return ListView(
                 children:userTiles,
             );
