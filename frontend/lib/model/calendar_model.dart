@@ -30,10 +30,4 @@ class CalendarModel extends ChangeNotifier {
       ]);
     });
   }
-
-  void onDayPressed(DateTime date, List<EventItem> events) {
-    currentDate = date;
-    Fluttertoast.showToast(msg: date.toString());
-    notifyListeners();
-  }
 }
