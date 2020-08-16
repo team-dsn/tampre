@@ -2,20 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tampre/view/component/user.dart';
 
 class HomeModel extends ChangeNotifier {
-  List<User> users = [
-    User(id: '1', userName: 'アリストテレス', birthday: '19970125', icon: 'images/aristoteres.png', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '2', icon: 'images/newton.jpeg', userName: 'ニュートン', birthday: '19921221', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '3', icon: 'images/newton.jpeg', userName: 'ニューロン', birthday: '20000211', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '4', icon: 'images/newton.jpeg', userName: 'ニューコメン', birthday: '20000311', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '5', icon: 'images/newton.jpeg', userName: 'ニューごめん', birthday: '20000411', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '6', icon: 'images/newton.jpeg', userName: 'ニューごめん', birthday: '20000511', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '7', icon: 'images/newton.jpeg', userName: 'ニューごめん', birthday: '20000611', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '8', icon: 'images/newton.jpeg', userName: 'ニューごめん', birthday: '20000711', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '9', icon: 'images/newton.jpeg', userName: 'ニューごめん', birthday: '20000811', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '10', icon: 'images/newton.jpeg', userName: 'ニューごめん', birthday: '20000911', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '11', icon: 'images/newton.jpeg', userName: 'ニューごめん', birthday: '20001011', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: '12', icon: 'images/newton.jpeg', userName: 'ニューごめん', birthday: '20001111', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-  ];
+  List<User> users;
+
+  HomeModel(this.users);
 
   sort() {
     users.forEach((user) {
