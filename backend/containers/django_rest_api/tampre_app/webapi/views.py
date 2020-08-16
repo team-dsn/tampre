@@ -40,18 +40,20 @@ class UserInfoAPIView(views.APIView):
         """ ユーザモデル修正APIに対応するハンドラメソッド """
         # モデルオブジェクトを取得
         user = get_object_or_404(UserInfo, user_id=user_id)
-        # 各値をupdateする
-        user.user_name = request.data['user_name']
-        user.birthday = request.data['birthday']
-        user.profile_image_url = request.data['profile_image_url']
-        user.wish_list_url = request.data['wish_list_url']
-        # DBにsaveする
-        user.save()
+        # updateする
+        serializer = UserInfoSerializer(user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         # レスポンスオブジェクトを作成して返す
-        return Response(UserInfoSerializer(instance=user).data, status.HTTP_200_OK)
-
+        return Response(serializer.data, status.HTTP_200_OK)
+        
     def delete(self, request, user_id, *args, **kwargs):
         """ ユーザモデル削除APIに対応するハンドラメソッド """
         # モデルオブジェクトを取得
         user = get_object_or_404(UserInfo, user_id=user_id).delete()
         return Response(status.HTTP_200_OK)
+
+class UserFriendRequest(views.APIView):
+    """ 友達申請を送る """
+    def post(self, request, user_id, friend_id, *args, **kwargs):
+        pass
