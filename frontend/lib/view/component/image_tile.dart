@@ -5,6 +5,7 @@ class ImageTile extends StatelessWidget {
   String username;
   String birthday;
 
+
   ImageTile({String icon, String username, String birthday}) {
     this.icon = icon;
     this.username = username;
