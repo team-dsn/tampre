@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
+import 'package:quartet/quartet.dart' show slice;
 
 import 'package:tampre/view/component/event_item.dart';
 import 'package:tampre/view/component/global.dart' as global;
+import 'package:tampre/view/component/user.dart';
+import 'package:tampre/view/profile_route.dart';
 
 class CalendarModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now();
@@ -30,5 +33,29 @@ class CalendarModel extends ChangeNotifier {
         ),
       ]);
     });
+  }
+
+  void onDayPressed(DateTime date, List<EventItem> events, BuildContext context) {
+    if(events.length == 1) {
+      String month = slice('0' + events[0].date.month.toString(), -2);
+      String day = slice('0' + events[0].date.day.toString(), -2);
+      String birthday = '2020${month}${day}';
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Profile(
+            user: User(
+              id: '1',
+              userName: events[0].title,
+              birthday: birthday, 
+              icon: events[0].iconPath,
+              wishList: events[0].wishList
+            )
+          ),
+        )
+      );
+    }
+    currentDate = date;
+    notifyListeners();
   }
 }
