@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 
 import 'package:tampre/view/component/event_item.dart';
 import 'package:tampre/view/component/global.dart' as global;
+import 'package:tampre/view/component/user.dart';
+import 'package:tampre/view/home_route.dart';
+import 'package:tampre/view/profile_route.dart';
 
 class CalendarModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now();
@@ -14,8 +16,9 @@ class CalendarModel extends ChangeNotifier {
     global.users.forEach((user) {
       markedDateMap.addAll(new DateTime(2020, user.birthday.month, user.birthday.day), [
         new EventItem(
+          user: user,
           date: new DateTime(2020, user.birthday.month, user.birthday.day),
-          title: user.name,
+          title: user.userName,
           icon: Container(
             decoration: new BoxDecoration(
             color: Colors.white,
@@ -25,15 +28,36 @@ class CalendarModel extends ChangeNotifier {
               backgroundImage: AssetImage(user.icon),
             ),
           ),
-          iconPath: user.icon,
         ),
       ]);
     });
   }
 
-  void onDayPressed(DateTime date, List<EventItem> events) {
+  void onDayPressed(DateTime date, List<EventItem> events, BuildContext context) {
+    if(events.length == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Profile(
+            user: events[0].user,
+          ),
+        )
+      );
+    } else if (1 < events.length) {
+      List<User> users = [];
+      events.forEach((event) {
+        users.add(event.user);
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home.users(
+            users: users,
+          ),
+        )
+      );
+    }
     currentDate = date;
-    Fluttertoast.showToast(msg: date.toString());
     notifyListeners();
   }
 }
