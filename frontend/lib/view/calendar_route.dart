@@ -21,13 +21,24 @@ class Calendar extends StatelessWidget {
         body: Container(
           child: Consumer<CalendarModel>(builder: (context, model, child) {
             return CalendarCarousel<EventItem>(
-              onDayPressed: (date, events) {
+              onDayPressed: (date, events) async {
                 if(events.length == 1) {
                   String month = slice('0' + events[0].date.month.toString(), -2);
                   String day = slice('0' + events[0].date.day.toString(), -2);
-                  Navigator.push (
+                  String birthday = '2020${month}${day}';
+                  await Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Profile(user: User(id: '1', userName: events[0].title, birthday: '2020${month}${day}', icon: events[0].iconPath)),)
+                    MaterialPageRoute(
+                      builder: (context) => Profile(
+                        user: User(
+                          id: '1',
+                          userName: events[0].title,
+                          birthday: birthday, 
+                          icon: events[0].iconPath,
+                          wishList: events[0].wishList
+                        )
+                      ),
+                    )
                   );
                 }
               },

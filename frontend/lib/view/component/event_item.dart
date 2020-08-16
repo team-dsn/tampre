@@ -6,6 +6,7 @@ class EventItem extends EventInterface {
   final String title;
   final Widget icon;
   final String iconPath;
+  final String wishList;
   final Widget dot;
 
   EventItem({
@@ -13,6 +14,7 @@ class EventItem extends EventInterface {
     this.title,
     this.icon,
     this.iconPath,
+    this.wishList,
     this.dot,
   }) : assert(date != null);
 

@@ -26,6 +26,7 @@ class CalendarModel extends ChangeNotifier {
             ),
           ),
           iconPath: user.icon,
+          wishList: user.wishList
         ),
       ]);
     });
