@@ -1,5 +1,8 @@
 ## MAC
 .DS_Store
 
-## cache
+### Django ###
 __pycache__
+*.log
+*.pot
+*.pyc
