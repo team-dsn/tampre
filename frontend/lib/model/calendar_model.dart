@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
-import 'package:intl/intl.dart' show DateFormat;
 
 import 'package:tampre/view/component/global.dart' as global;
 
