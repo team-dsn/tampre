@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 
+import 'package:tampre/view/component/user.dart';
+
 class EventItem extends EventInterface {
   final DateTime date;
   final String title;
   final Widget icon;
-  final String iconPath;
-  final String wishList;
   final Widget dot;
+  final User user;
 
   EventItem({
     this.date,
     this.title,
     this.icon,
-    this.iconPath,
-    this.wishList,
     this.dot,
+    this.user,
   }) : assert(date != null);
 
   @override
