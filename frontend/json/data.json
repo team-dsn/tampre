@@ -1,3 +1,10 @@
- {
-   "image": "images/newton.jpeg"
- }
+{
+  "users": [
+    {
+      "image": "images/newton.jpeg"
+    },
+    {
+      "image": "images/aristoteres.png"
+    }
+  ]
+}

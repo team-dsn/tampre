@@ -7,82 +7,39 @@ import 'package:intl/intl.dart' show DateFormat;
 
 import 'package:tampre/view/component/global.dart' as global;
 
-
 class CalendarModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now();
   EventList<Event> markedDateMap = new EventList<Event>();
-  static Widget eventIcon = new Container(
-    decoration: new BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(1000)),
-        border: Border.all(color: Colors.blue, width: 2.0)),
-    child: new CircleAvatar(
-      backgroundImage: AssetImage(global.icons),
-    ),
-  );
 
   CalendarModel(){
-    markedDateMap.addAll(new DateTime(2020, 8, 11), [
+    markedDateMap.addAll(new DateTime(2020, 8, 18), [
       new Event(
-        date: new DateTime(2020, 8, 11),
-        title: 'Event 1',
-        icon: eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2020, 8, 11),
+        date: new DateTime(2020, 8, 18),
         title: 'Event 2',
-        icon: eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2020, 8, 11),
-        title: 'Event 2',
-        icon: eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2020, 8, 12),
-        title: 'Event 2',
-        icon: eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2020, 8, 13),
-        title: 'Event 2',
-        icon: eventIcon,
+        icon: Container(
+          decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(1000)),
+          border: Border.all(color: Colors.blue, width: 2.0)),
+          child: new CircleAvatar(
+            backgroundImage: AssetImage(global.icons[0]),
+          ),
+        ),
       ),
     ]);
-    markedDateMap.addAll(new DateTime(2020, 8, 12), [
+    markedDateMap.addAll(new DateTime(2020, 8, 23), [
       new Event(
-        date: new DateTime(2020, 8, 11),
-        title: 'Event 1',
-        icon: eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2020, 8, 13),
+        date: new DateTime(2020, 8, 23),
         title: 'Event 2',
-        icon: eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2020, 8, 13),
-        title: 'Event 2',
-        icon: eventIcon,
-      ),
-    ]);
-    markedDateMap.addAll(new DateTime(2020, 8, 13), [
-      new Event(
-        date: new DateTime(2020, 8, 11),
-        title: 'Event 1',
-        icon: eventIcon,
-      ),
-      new Event(
-        date: new DateTime(2020, 8, 13),
-        title: 'Event 2',
-        icon: eventIcon,
-      ),
-    ]);
-    markedDateMap.addAll(new DateTime(2020, 8, 14), [
-      new Event(
-        date: new DateTime(2020, 8, 11),
-        title: 'Event 1',
-        icon: eventIcon,
+        icon: Container(
+          decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(1000)),
+          border: Border.all(color: Colors.blue, width: 2.0)),
+          child: new CircleAvatar(
+            backgroundImage: AssetImage(global.icons[1]),
+          ),
+        ),
       ),
     ]);
   }

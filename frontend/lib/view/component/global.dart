@@ -1,1 +1,1 @@
-String icons = 'fuga';
+List<String> icons = [];

@@ -8,10 +8,7 @@ import 'package:tampre/view/footer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); 
-  print(global.icons);
-  global.icons = 'piyo';
   await loadJsonAsset();
-  print(global.icons);
   runApp(App());
 }
 
@@ -19,7 +16,9 @@ Future<void> loadJsonAsset() async {
   String loadData = await rootBundle.loadString('json/data.json');
   final jsonResponse = json.decode(loadData);
   jsonResponse.forEach((key,value) {
-    global.icons = '$value';
+    for(dynamic v in value){
+      global.icons.add(v['image']);
+    }
   });
 }
 
