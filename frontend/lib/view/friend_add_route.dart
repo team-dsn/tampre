@@ -3,8 +3,11 @@ import 'package:provider/provider.dart';
 
 import 'package:tampre/model/friend_add_model.dart';
 
+import 'component/user.dart';
+
 class FriendAdd extends StatelessWidget {
   String id;
+  User user;
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +19,16 @@ class FriendAdd extends StatelessWidget {
         ),
         body: Consumer<FriendAddModel>(builder: (context, model, child) {
             return Center(
-            child: Column(children: <Widget>[
-              SpaceBox.height(30),
-              Row(children: <Widget>[
-                Spacer(),
-                Container(
-                  width:MediaQuery.of(context).size.width * 0.6,
-                  height: 50,
-                  child:TextField(
+              child: Column(children: <Widget>[
+                SizedBox(
+                height: 30,
+                ),
+                Row(children: <Widget>[
+                  Spacer(),
+                  Container(
+                    width:MediaQuery.of(context).size.width * 0.6,
+                    height: 50,
+                    child:TextField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: '友達ID',
@@ -34,45 +39,67 @@ class FriendAdd extends StatelessWidget {
                   }
                   ),
                 ),
-                Spacer(),
-                ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width * 0.1,
-                  height: 50,
-                  child:RaisedButton(
-                    child: Icon(Icons.search),
-                    color: Colors.grey[300],
-                    shape:OutlineInputBorder(),
-                    onPressed: () {
-                      model.onSearchPressed(id);
-                    },
+                  Spacer(),
+                  ButtonTheme(
+                    minWidth: MediaQuery.of(context).size.width * 0.1,
+                    height: 50,
+                    child:RaisedButton(
+                      child: Icon(Icons.search),
+                      color: Colors.grey[300],
+                      shape:OutlineInputBorder(),
+                      onPressed: () {
+                        this.user = model.onSearchPressed(id);
+                      },
                   )
                 ),
-                Spacer(),
+                  Spacer(),
               ],),
-              SpaceBox.height(30),
-              Text(model.userName,
+                SizedBox(
+                height: 30,
+                ),
+                Text(user != null
+                  ? user.userName
+                  : '',
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.1,
                   ),
               ),
-              SpaceBox.height(10),
-              Image.asset(
-                'images/aristoteres.png',
-                width: MediaQuery.of(context).size.width * 0.45,
-                height:MediaQuery.of(context).size.width * 0.45,
+                SizedBox(
+                height: 10,
               ),
-              SpaceBox.height(40),
-              ButtonTheme(
+                user != null
+                ? Image.asset(
+                  user.icon,
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height:MediaQuery.of(context).size.width * 0.5,
+                )
+                : Container(
+                    decoration: BoxDecoration(
+                      shape:BoxShape.circle,
+                      color: Colors.grey,
+                    ),
+                    child: Icon(Icons.person,
+                      color: Colors.white,
+                      size:MediaQuery.of(context).size.width * 0.5
+                    ),
+                ),
+
+                SizedBox(
+                height: 40,
+              ),
+                ButtonTheme(
                 minWidth: MediaQuery.of(context).size.width * 0.6,
                 height: 50,
-                child:RaisedButton(
-                  child: Text("友達申請",style: TextStyle(fontSize: 20)),
-                  color: Colors.white,
-                  shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                  onPressed: () {},
-                ),
+                  child: user != null
+                      ? RaisedButton(
+                          child: Text("友達申請",style: TextStyle(fontSize: 20)),
+                          color: Colors.white,
+                          shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        onPressed: () {},
+                      )
+                      : Container(),
               ),
             ]),
           );
@@ -80,12 +107,4 @@ class FriendAdd extends StatelessWidget {
       )
     );
   }
-}
-
-class SpaceBox extends SizedBox {
-  SpaceBox({double width = 8, double height = 8})
-      : super(width: width, height: height);
-
-  SpaceBox.width([double value = 8]) : super(width: value);
-  SpaceBox.height([double value = 8]) : super(height: value);
 }
