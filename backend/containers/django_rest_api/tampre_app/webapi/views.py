@@ -53,7 +53,14 @@ class UserInfoAPIView(views.APIView):
         user = get_object_or_404(UserInfo, user_id=user_id).delete()
         return Response(status.HTTP_200_OK)
 
-class UserFriendRequest(views.APIView):
-    """ 友達申請を送る """
-    def post(self, request, user_id, friend_id, *args, **kwargs):
+class FriendInfoAPIView(views.APIView):
+    """ 友達情報を取得する """
+    def get(self, request, user_id, *args, **kwargs):
+        """ 友達情報取得APIに対応するハンドラメソッド """
         pass
+        # モデルオブジェクトを取得
+        #friends = FriendInfo.objects.filter(user_id=user_id, status=1)
+        # シリアライザオブジェクトを作成
+        # serializer = FriendInfoSerializer(instance=friends)
+        # レスポンスオブジェクトを作成して返す
+        # return Response(serializer.data, status.HTTP_200_OK)
