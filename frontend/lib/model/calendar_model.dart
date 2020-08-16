@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 
+import 'package:tampre/view/component/event_item.dart';
 import 'package:tampre/view/component/global.dart' as global;
 
 class CalendarModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now();
-  EventList<Event> markedDateMap = new EventList<Event>();
+  EventList<EventItem> markedDateMap = new EventList<EventItem>();
 
   CalendarModel(){
     global.users.forEach((user) {
-      print(user.birthday.month);
-      print(user.birthday.day);
       markedDateMap.addAll(new DateTime(2020, user.birthday.month, user.birthday.day), [
-        new Event(
-          date: new DateTime(2020, 8, 18),
-          title: 'Event 2',
+        new EventItem(
+          date: new DateTime(2020, user.birthday.month, user.birthday.day),
+          title: user.name,
           icon: Container(
             decoration: new BoxDecoration(
             color: Colors.white,
@@ -27,12 +25,13 @@ class CalendarModel extends ChangeNotifier {
               backgroundImage: AssetImage(user.icon),
             ),
           ),
+          iconPath: user.icon,
         ),
       ]);
     });
   }
 
-  void onDayPressed(DateTime date, List<Event> events) {
+  void onDayPressed(DateTime date, List<EventItem> events) {
     currentDate = date;
     Fluttertoast.showToast(msg: date.toString());
     notifyListeners();

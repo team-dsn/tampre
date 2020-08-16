@@ -1,17 +1,35 @@
 {
   "users": [
     {
+      "name": "ニュートン",
       "image": "images/newton.jpeg",
       "birthday": {
-        "month": 8,
-        "day": 13
+        "month": "08",
+        "day": "13"
       }
     },
     {
+      "name": "アリストテレス",
       "image": "images/aristoteres.png",
       "birthday": {
-        "month": 8,
-        "day": 25
+        "month": "08",
+        "day": "25"
+      }
+    },
+    {
+      "name": "ニュー子ン",
+      "image": "images/newton.jpeg",
+      "birthday": {
+        "month": "08",
+        "day": "14"
+      }
+    },
+    {
+      "name": "アリス子テレス",
+      "image": "images/aristoteres.png",
+      "birthday": {
+        "month": "08",
+        "day": "27"
       }
     }
   ]
