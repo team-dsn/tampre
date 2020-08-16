@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:tampre/view/footer.dart';
 
-void main() => runApp(App());
+void main() async {
+  await Future.delayed(Duration(seconds: 5));
+
+  runApp(App());
+}
 
 class App extends StatelessWidget {
   @override
