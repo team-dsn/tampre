@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:tampre/view/component/global.dart' as global;
 import 'package:tampre/view/component/user.dart';
-
-import '../view/component/user.dart';
 
 class FriendAddModel extends ChangeNotifier {
 
@@ -13,6 +12,9 @@ class FriendAddModel extends ChangeNotifier {
   ];
 
   User onSearchPressed(String query){
+    // ダミー処理。本来は、友達申請の対応処理完了時にfriendRequestNumberを1減らす。
+    // footerの別アイコンを押すことでfooterの再描画がかかる。
+    global.friendRequestNumber = 0;
     User selectedUser;
     print("idは$query");
     people.forEach((user) {
