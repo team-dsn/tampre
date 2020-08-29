@@ -5,6 +5,7 @@ import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:tampre/view/component/event_item.dart';
 import 'package:tampre/view/component/global.dart' as global;
 import 'package:tampre/view/component/user.dart';
+import 'package:tampre/view/friend_profile.dart';
 import 'package:tampre/view/home_route.dart';
 import 'package:tampre/view/profile_route.dart';
 
@@ -38,7 +39,7 @@ class CalendarModel extends ChangeNotifier {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Profile(
+          builder: (context) => FriendProfile(
             user: events[0].user,
           ),
         )

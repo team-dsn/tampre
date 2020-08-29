@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:tampre/model/calendar_model.dart';
 import 'package:tampre/view/component/event_item.dart';
 
-
 class Calendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
