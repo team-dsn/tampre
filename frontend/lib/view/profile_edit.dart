@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'component/user.dart';
 
 class ProfileEdit extends StatelessWidget {
-  ProfileEdit(this.myUser);
+  ProfileEdit({this.myUser});
   final User myUser;
 
 
@@ -14,20 +14,33 @@ class ProfileEdit extends StatelessWidget {
   Widget build(BuildContext context) {
 
       final userNameEdittingController = TextEditingController();
-      userNameEdittingController.text = myUser.userName;
       final birthdayEdittingController = TextEditingController();
-      birthdayEdittingController.text =
-      '${myUser.birthday.month}/${myUser.birthday.day}';
       final wishListEdittingController = TextEditingController();
-      wishListEdittingController.text = myUser.wishList;
+
+      bool isEditing = myUser != null;
+      if (isEditing){
+        userNameEdittingController.text = myUser.userName;
+        birthdayEdittingController.text =
+        '${myUser.birthday.month}/${myUser.birthday.day}';
+        wishListEdittingController.text = myUser.wishList;
+
+      };
+
+
     return ChangeNotifierProvider<ProfileEditModel>(
       create: (_) => ProfileEditModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text("プロフィール"),
+          title: Text(
+              isEditing
+              ? "プロフィール"
+          : "ユーザー情報登録"),
           actions: <Widget>[
             FlatButton(
-              child: Text('完了',
+              child: Text(
+                isEditing
+                ? '完了'
+                : '登録',
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -153,6 +166,17 @@ class ProfileEdit extends StatelessWidget {
                           ),
                         ),
                       ]),
+                ),
+                SizedBox(height: 20,),
+                RaisedButton(
+                  child: Text("欲しいものリストの登録方法",style: TextStyle(fontSize: 20)),
+                  color: Colors.white,
+                  shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  onPressed: () {
+                   //todo 欲しいものリストの登録方法の説明ページへ
+                  },
                 ),
               ]),
             );
