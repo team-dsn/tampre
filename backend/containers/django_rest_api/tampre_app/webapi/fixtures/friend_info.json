@@ -3,8 +3,8 @@
         "model": "webapi.friendInfo",
         "pk": 1,
         "fields": {
-            "user_id": "1234567890",
-            "friend_id": "1234567891",
+            "userId": "1234567890",
+            "friendId": "1234567891",
             "status": 0
         }
     },
@@ -12,8 +12,8 @@
         "model": "webapi.friendInfo",
         "pk": 2,
         "fields": {
-            "user_id": "1234567891",
-            "friend_id": "1234567892",
+            "userId": "1234567891",
+            "friendId": "1234567892",
             "status": 0
         }
     },
@@ -21,8 +21,8 @@
         "model": "webapi.friendInfo",
         "pk": 3,
         "fields": {
-            "user_id": "1234567892",
-            "friend_id": "1234567890",
+            "userId": "1234567892",
+            "friendId": "1234567890",
             "status": 0
         }
     }
