@@ -116,7 +116,7 @@ class FriendRequestedAPIView(views.APIView):
     """ 自分に来ている友達申請を確認する """
     def get(self, request, user_id, *args, **kwargs):
         # モデルオブジェクトを取得
-        friends = FriendInfo.objects.filter(friend_id=user_id, status=1)
+        friends = FriendInfo.objects.filter(friend_id=user_id, status=0)
         # シリアライザオブジェクトを作成
         serializer = FriendInfoSerializer(instance=friends, many=True)
         # 友達情報をUserInfoDBから取得
@@ -128,3 +128,55 @@ class FriendRequestedAPIView(views.APIView):
         # レスポンスオブジェクトを作成して返す
         return Response(serializer2.data, status.HTTP_200_OK)
 
+    """ 自分に来ている友達申請を承諾する """
+    def post(self, request, user_id, friend_id, *args, **kwargs):
+        # バリデーション：UserとFriendが存在するかの確認
+        user = get_object_or_404(UserInfo, user_id=user_id)
+        friend = get_object_or_404(UserInfo, user_id=friend_id)
+
+        if request.data['accept'] == 'true':
+            # すでにあればupdate、なければcreate
+            user_to_friend = FriendInfo.objects.filter(user_id=user_id, friend_id=friend_id)
+            if not user_to_friend:
+                serializer = FriendInfoSerializer(data={"user_id":user_id, "friend_id":friend_id, "status":1})
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            else:
+                serializer = FriendInfoSerializer(user_to_friend[0], data={"status":1}, partial=True)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            # すでにあればupdate、なければcreate
+            friend_to_user = FriendInfo.objects.filter(user_id=friend_id, friend_id=user_id)
+            if not friend_to_user:
+                serializer = FriendInfoSerializer(data={"user_id":friend_id, "friend_id":user_id, "status":1})
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            else:
+                serializer = FriendInfoSerializer(friend_to_user[0], data={"status":1}, partial=True)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            # レスポンスオブジェクトを作成して返す
+            return Response(serializer.data, status.HTTP_200_OK)
+        else:
+            # すでにあればupdate、なければcreate
+            user_to_friend = FriendInfo.objects.filter(user_id=user_id, friend_id=friend_id)
+            if not user_to_friend:
+                serializer = FriendInfoSerializer(data={"user_id":user_id, "friend_id":friend_id, "status":2})
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            else:
+                serializer = FriendInfoSerializer(user_to_friend[0], data={"status":2}, partial=True)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            # すでにあればupdate、なければcreate
+            friend_to_user = FriendInfo.objects.filter(user_id=friend_id, friend_id=user_id)
+            if not friend_to_user:
+                serializer = FriendInfoSerializer(data={"user_id":friend_id, "friend_id":user_id, "status":2})
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            else:
+                serializer = FriendInfoSerializer(friend_to_user[0], data={"status":2}, partial=True)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            # レスポンスオブジェクトを作成して返す
+            return Response(serializer.data, status.HTTP_200_OK)
