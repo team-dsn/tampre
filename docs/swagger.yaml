@@ -10,6 +10,8 @@ tags:
   description: "user情報管理"
 - name: "friends"
   description: "friends管理"
+- name: "request"
+  description: "友達申請管理"
 schemes:
 - "https"
 paths:
@@ -22,13 +24,13 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "user_id"
+      - name: "userId"
         in: "query"
         description: "ユーザID"
         required: true
         type: "string"
         example: "abcde123"
-      - name: "user_name"
+      - name: "userName"
         in: "query"
         description: "ユーザ名"
         required: true
@@ -44,20 +46,20 @@ paths:
         minLength: 0
         maxLength: 8
         example: "18790314"
-      - name: "profile_image_url"
+      - name: "profileImageUrl"
         in: "query"
         description: "プロフ画像のURL"
         required: true
         type: "string"
         format: "url"
-        example: "https://www.picture/XXXX.jpg"
-      - name: "wish_list_url"
+        example: "https://www.picture/XXXX.jp"
+      - name: "wishListUrl"
         in: "query"
         description: "欲しいものリストのURL"
         required: true
         type: "string"
         format: "url"
-        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
+        example: "https://www.wishlist/XXXX.jp"
       responses:
         "200":
           description: "successful operation"
@@ -65,7 +67,7 @@ paths:
             $ref: "#/definitions/User"
         "400":
           description: "Invalid value"
-  /user/{user_id}:
+  /user/{userId}:
     get:
       tags:
       - "user"
@@ -74,9 +76,9 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "user_id"
+      - name: "userId"
         in: "path"
-        description: "user_id"
+        description: "userId"
         required: true
         type: "string"
       responses:
@@ -94,13 +96,13 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "user_id"
+      - name: "userId"
         in: "path"
-        description: "user_id"
+        description: "userId"
         required: true
         type: "string"
         example: "abcde123"
-      - name: "user_name"
+      - name: "userName"
         in: "query"
         description: "ユーザ名"
         type: "string"
@@ -114,18 +116,18 @@ paths:
         minLength: 0
         maxLength: 10
         example: "18790314"
-      - name: "profile_image_url"
+      - name: "profileImageUrl"
         in: "query"
         description: "プロフ画像のURL"
         type: "string"
         format: "url"
-        example: "https://www.picture/XXXX.jpg"
-      - name: "wish_list_url"
+        example: "https://www.picture/XXXX.jp"
+      - name: "wishListUrl"
         in: "query"
         description: "欲しいものリストのURL"
         type: "string"
         format: "url"
-        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
+        example: "https://www.wishlist/XXXX.jp"
       responses:
         "200":
           description: "successful operation"
@@ -141,9 +143,9 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "user_id"
+      - name: "userId"
         in: "path"
-        description: "user_id"
+        description: "userId"
         required: true
         type: "string"
       responses:
@@ -151,7 +153,7 @@ paths:
           description: "successful operation"
         "400":
           description: "Invalid value"
-  /friends/{user_id}:
+  /friends/{userId}:
     get:
       tags:
       - "friends"
@@ -162,9 +164,9 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "user_id"
+      - name: "userId"
         in: "path"
-        description: "user_id"
+        description: "userId"
         required: true
         type: "string"
       responses:
@@ -176,7 +178,7 @@ paths:
               $ref: "#/definitions/Friend"
         "404":
           description: "No Data"
-  /friends/{user_id}/{friend_id}:
+  /friends/{userId}/{friendId}:
     delete:
       tags:
       - "friends"
@@ -184,14 +186,14 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "user_id"
+      - name: "userId"
         in: "path"
-        description: "user_id"
+        description: "userId"
         required: true
         type: "string"
-      - name: "friend_id"
+      - name: "friendId"
         in: "path"
-        description: "friend_id"
+        description: "friendId"
         required: true
         type: "string"
       responses:
@@ -199,22 +201,22 @@ paths:
           description: "successful operation"
         "400":
           description: "Invalid request"
-  /friends/request/{user_id}/{friend_id}:
+  /request/{userId}/{friendId}:
     post:
       tags:
-      - "friends"
+      - "request"
       summary: "友達申請を送る"
       produces:
       - "application/json"
       parameters:
-      - name: "user_id"
+      - name: "userId"
         in: "path"
-        description: "user_id"
+        description: "userId"
         required: true
         type: "string"
-      - name: "friend_id"
+      - name: "friendId"
         in: "path"
-        description: "friend_id"
+        description: "friendId"
         required: true
         type: "string"
       responses:
@@ -222,17 +224,17 @@ paths:
           description: "successful operation"
         "400":
           description: "Invalid request"
-  /friends/requested/{user_id}:
+  /requested/{userId}:
     get:
       tags:
-      - "friends"
+      - "request"
       summary: "自分に来ている友達申請のリストを取得"
       description: "毎回、アプリ起動時に呼び出し、友達申請が来ていればその情報を取得する。なければ空のリストを返す"
       produces:
       - "application/json"
       parameters:
       - in: "path"
-        name: "user_id"
+        name: "userId"
         type: "string"
         required: true
       responses:
@@ -242,21 +244,21 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Friend"
-  /friends/requested/{user_id}/{friend_id}:
+  /requested/{userId}/{friendId}:
     post:
       tags:
-      - "friends"
+      - "request"
       summary: "自分に来ている友達申請に返答する"
       description: "trueで許可、falseで拒否"
       produces:
       - "application/json"
       parameters:
       - in: "path"
-        name: "user_id"
+        name: "userId"
         type: "string"
         required: true
       - in: "path"
-        name: "friend_id"
+        name: "friendId"
         type: "string"
         required: true
       - in: "body"
@@ -276,33 +278,33 @@ definitions:
   User:
     type: "object"
     properties:
-      user_id:
+      userId:
         type: "string"
         example: "abcde123"
-      user_name:
+      userName:
         type: "string"
         example: "Einstein"
       birthday:
         type: "string"
         example: "YYYYMMDD"
-      profile_image_url:
+      profileImageUrl:
         type: "string"
         format: "url"
-        example: "https://www.image/XXX.jpg"  
-      wish_list_url:
+        example: "https://www.image/XXX.jp"  
+      wishListUrl:
         type: "string"
         format: "url"
-        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
+        example: "https://www.picture/XXX.jp"
   Friend:
     type: "object"
     properties:
-      user_id:
+      userId:
         type: "string"
         example: "abcde123"
-      user_name:
+      userName:
         type: "string"
         example: "Einstein"
       profile_image_url:
         type: "string"
         format: "url"
-        example: "https://www.image/XXX.jpg"
+        example: "https://www.image/XXX.jp"
