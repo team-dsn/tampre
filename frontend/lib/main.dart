@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:quartet/quartet.dart' show slice;
 
 import 'package:tampre/view/component/global.dart' as global;
+import 'package:tampre/view/component/user.dart';
 import 'package:tampre/view/footer.dart';
 
 void main() async {
@@ -17,7 +19,18 @@ Future<void> loadJsonAsset() async {
   final jsonResponse = json.decode(loadData);
   jsonResponse.forEach((key,value) {
     for(dynamic v in value){
-      global.users.add(global.TmpUser(birthday: DateTime(1995, v['birthday']['month'], v['birthday']['day']), icon: v['image']));
+      String month = slice('0' + v['birthday']['month'], -2);
+      String day = slice('0' + v['birthday']['day'], -2);
+      String birthday = '${v['birthday']['year']}${month}${day}';
+      global.users.add(
+        User(
+          id: v['id'],
+          birthday: birthday,
+          icon: v['image'],
+          userName: v['name'],
+          wishList: v['wishList']
+        )
+      );
     }
   });
 }

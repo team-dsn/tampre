@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'component/user.dart';
 
@@ -52,7 +53,25 @@ class Profile extends StatelessWidget {
                       ),
                   ]
                   ),
-                  Text('欲しいものリスト:', style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05)),
+                  Text('欲しいものリスト:',
+                        style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        )
+                      ),
+                  InkWell(
+                    child: Text( isFriend ? user.wishList : '自分のほしいものリスト',
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                            )
+                    ),
+                    onTap: ()async {
+                      if (await canLaunch(isFriend ? user.wishList : '自分のほしいものリスト')) {
+                        await launch(isFriend ? user.wishList : '自分のほしいものリスト');
+                      };
+                    },
+                  ),
                 ]),
           ),
         ]),

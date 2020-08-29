@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  badges: ^1.1.1
   flutter:
     sdk: flutter
   flutter_native_splash: ^0.1.9
@@ -17,6 +18,8 @@ dependencies:
   flutter_calendar_carousel: ^1.4.12
   fluttertoast: ^7.0.2
   intl: ^0.16.1
+  url_launcher: ^3.0.3
+  quartet: ^0.1.1
 
 dev_dependencies:
   flutter_test:

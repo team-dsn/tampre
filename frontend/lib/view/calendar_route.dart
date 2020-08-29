@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:provider/provider.dart';
 
 import 'package:tampre/model/calendar_model.dart';
+import 'package:tampre/view/component/event_item.dart';
+
 
 class Calendar extends StatelessWidget {
   @override
@@ -17,8 +18,8 @@ class Calendar extends StatelessWidget {
         ),
         body: Container(
           child: Consumer<CalendarModel>(builder: (context, model, child) {
-            return CalendarCarousel<Event>(
-              onDayPressed: model.onDayPressed,
+            return CalendarCarousel<EventItem>(
+              onDayPressed: (date, events) => model.onDayPressed(date, events, context),
               weekendTextStyle: TextStyle(color: Colors.red),
               weekFormat: false,
               height: MediaQuery.of(context).size.height - Scaffold.of(context).appBarMaxHeight,
