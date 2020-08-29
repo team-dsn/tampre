@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -5,9 +6,14 @@ import 'package:tampre/view/calendar_route.dart';
 import 'package:tampre/view/friend_add_route.dart';
 import 'package:tampre/view/home_route.dart';
 import 'package:tampre/view/profile_route.dart';
+import 'package:tampre/view/component/global.dart' as global;
 
 class FooterModel extends ChangeNotifier {
-  int selectedIndex = 0;
+  static const int indexHome      = 0;
+  static const int indexCalendar  = 1;
+  static const int indexFriendAdd = 2;
+  static const int indexProfile   = 3;
+  int selectedIndex = indexHome;
   final bottomNavigationBarItems = <BottomNavigationBarItem>[];
 
   FooterModel() {
@@ -40,30 +46,62 @@ class FooterModel extends ChangeNotifier {
 
   BottomNavigationBarItem updateActiveState(int index) {
     return BottomNavigationBarItem(
-        icon: Icon(
-          _footerIcons[index],
-          color: Colors.black87,
-        ),
-        title: Text(
-          _footerItemNames[index],
-          style: TextStyle(
+      icon: Stack(
+        children: <Widget>[
+          if (_footerItemNames[index] == '友達追加' && 0 < global.friendRequestNumber) Badge(
+            animationDuration: Duration(milliseconds: 300),
+            animationType: BadgeAnimationType.slide,
+            badgeContent: Text(
+              global.friendRequestNumber.toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+            child: Icon(
+              _footerIcons[index],
+              color: Colors.black87,
+            ),
+          ) else Icon(
+            _footerIcons[index],
             color: Colors.black87,
           ),
-        ));
+        ],
+      ),
+      title: Text(
+        _footerItemNames[index],
+        style: TextStyle(
+          color: Colors.black87,
+        ),
+      )
+    );
   }
 
   BottomNavigationBarItem updateDeactiveState(int index) {
     return BottomNavigationBarItem(
-        icon: Icon(
-          _footerIcons[index],
-          color: Colors.black26,
-        ),
-        title: Text(
-          _footerItemNames[index],
-          style: TextStyle(
+      icon: Stack(
+        children: <Widget>[
+          if (_footerItemNames[index] == '友達追加' && 0 < global.friendRequestNumber) Badge(
+            animationDuration: Duration(milliseconds: 300),
+            animationType: BadgeAnimationType.slide,
+            badgeContent: Text(
+              global.friendRequestNumber.toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+            child: Icon(
+              _footerIcons[index],
+              color: Colors.black26,
+            ),
+          ) else Icon(
+            _footerIcons[index],
             color: Colors.black26,
           ),
-        ));
+        ],
+      ),
+      title: Text(
+        _footerItemNames[index],
+        style: TextStyle(
+          color: Colors.black26,
+        ),
+      )
+  );
   }
 
   void onItemTapped(int index) {

@@ -1,17 +1,7 @@
-class TmpUser {
-  DateTime _birthday;
-  String _icon;
-  String _name;
+import 'package:tampre/view/component/user.dart';
 
-  DateTime get birthday => _birthday;
-  String get icon => _icon;
-  String get name => _name;
+// DBから取得したデータを格納する
+// 現状、DBの代わりにjson/data.jsonを使用している
+List<User> users = [];
 
-  TmpUser({DateTime birthday, String icon, String name}){
-    this._birthday = birthday;
-    this._icon = icon;
-    this._name = name;
-  }
-}
-
-List<TmpUser> users = [];
+int friendRequestNumber = 1;
