@@ -52,7 +52,7 @@ paths:
         required: true
         type: "string"
         format: "url"
-        example: "https://www.picture/XXXX.jp"
+        example: "https://www.picture/XXXX.jpg"
       - name: "wishListUrl"
         in: "query"
         description: "欲しいものリストのURL"
@@ -290,7 +290,7 @@ definitions:
       profileImageUrl:
         type: "string"
         format: "url"
-        example: "https://www.image/XXX.jp"  
+        example: "https://www.image/XXX.jpg"  
       wishListUrl:
         type: "string"
         format: "url"
@@ -304,7 +304,7 @@ definitions:
       userName:
         type: "string"
         example: "Einstein"
-      profile_image_url:
+      profileImageUrl:
         type: "string"
         format: "url"
-        example: "https://www.image/XXX.jp"
+        example: "https://www.image/XXX.jpg"
