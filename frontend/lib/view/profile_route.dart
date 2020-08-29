@@ -23,7 +23,7 @@ class Profile extends StatelessWidget {
               //todo:画面遷移
               Navigator.push (
                   context,
-                  MaterialPageRoute(builder: (context) => ProfileEdit(user:myUser),)
+                  MaterialPageRoute(builder: (context) => ProfileEdit(myUser),)
               );
             },
           )

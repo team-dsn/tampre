@@ -1,92 +1,163 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tampre/model/profile_edit_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'component/user.dart';
 
 class ProfileEdit extends StatelessWidget {
-  ProfileEdit({this.user});
-  final User user;
+  ProfileEdit(this.myUser);
+  final User myUser;
 
 
   @override
   Widget build(BuildContext context) {
-    final bool isFriend = user != null;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("プロフィール"),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('編集',
-              style: TextStyle(
-                color: Colors.white,
+
+      final userNameEdittingController = TextEditingController();
+      userNameEdittingController.text = myUser.userName;
+      final birthdayEdittingController = TextEditingController();
+      birthdayEdittingController.text =
+      '${myUser.birthday.month}/${myUser.birthday.day}';
+      final wishListEdittingController = TextEditingController();
+      wishListEdittingController.text = myUser.wishList;
+    return ChangeNotifierProvider<ProfileEditModel>(
+      create: (_) => ProfileEditModel(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("プロフィール"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('完了',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            ),
-            onPressed:(){
-              //todo:画面遷移
-            },
-          )
-        ],
-      ),
-      body: Center(
-        child: Column(children: <Widget>[
-          SizedBox(height: 8,),
-          Text( isFriend ? user.userName : 'MyName',
-              style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.1,
-              )),
-          SizedBox(height: 10,),
-          isFriend
-              ? Image.asset(
-            user.icon,
-            width: MediaQuery.of(context).size.width * 0.45,
-            height:MediaQuery.of(context).size.width * 0.45,
-          )
-              : Container(
-            color: Colors.grey,
-            child: Text('自分の写真'),
-            width: MediaQuery.of(context).size.width * 0.45,
-            height:MediaQuery.of(context).size.width * 0.45,
-          ),
-          SizedBox(height: 30,),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            padding: EdgeInsets.all(20),
-            color: Colors.grey[300],
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                      children: <Widget>[
-                        Text('誕生日:',
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
-                        ),
-                        Text( isFriend ? '${user.birthday.month}/${user.birthday.day}' : '自分の誕生日',
-                          style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
-                        ),
-                      ]
-                  ),
-                  Text('欲しいものリスト:',
+              onPressed:(){
+                //todo:編集を登録する
+              },
+            )
+          ],
+        ),
+        body: Consumer<ProfileEditModel>(
+          builder: (context, model, child) {
+            return Center(
+              child: Column(children: <Widget>[
+                SizedBox(height: 20,),
+                Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.8,
+                  child: TextField(
+                      controller: userNameEdittingController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.all(5),
+                      ),
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        fontSize: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.08,
                       )
                   ),
-                  InkWell(
-                    child: Text( isFriend ? user.wishList : '自分のほしいものリスト',
-                        style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.05,
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline,
-                        )
-                    ),
-                    onTap: ()async {
-                      if (await canLaunch(isFriend ? user.wishList : '自分のほしいものリスト')) {
-                        await launch(isFriend ? user.wishList : '自分のほしいものリスト');
-                      };
+                ),
+                SizedBox(height: 20,),
+
+                InkWell(
+                    onTap: () async {
+                      //todo imagepickerを開く
+                      await model.showImagePicker();
                     },
+                    child: myUser != null
+                        ? Image.asset(myUser.icon,
+                    height:MediaQuery.of(context).size.width * 0.5
+                      ,)
+                        : Container(
+                      decoration: BoxDecoration(
+                        shape:BoxShape.circle,
+                        color: Colors.grey,
+                      ),
+                      child: Icon(Icons.person,
+                          color: Colors.white,
+                          size:MediaQuery.of(context).size.width * 0.5
+                      ),
+                    ),
                   ),
-                ]),
-          ),
-        ]),
+                SizedBox(height: 30,),
+                Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.8,
+                  padding: EdgeInsets.all(20),
+                  color: Colors.grey[300],
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                            children: <Widget>[
+                              Text('誕生日:',
+                                style: TextStyle(fontSize: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.05),
+                              ),
+                              Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.5,
+                                height: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.10,
+                                child: TextField(
+                                  controller: birthdayEdittingController,
+                                  style: TextStyle(fontSize: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * 0.05),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    contentPadding: EdgeInsets.all(5),
+                                  ),
+                                ),
+                              ),
+                            ]
+                        ),
+                        SizedBox(height: 8,),
+                        Text('欲しいものリスト:',
+                            style: TextStyle(
+                              fontSize: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * 0.05,
+                            )
+                        ),
+                        Container(
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.10,
+                          child: TextField(
+                            controller: wishListEdittingController,
+                            style: TextStyle(fontSize: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.05,),
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                            ),
+                          ),
+                        ),
+                      ]),
+                ),
+              ]),
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tampre/view/profile_edit.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:tampre/view/component/global.dart' as global;
 
 import 'component/user.dart';
 
@@ -13,6 +14,18 @@ class FriendProfile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("プロフィール"),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('削除',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            onPressed:(){
+              //todo:ユーザーを削除する
+            },
+          )
+        ],
       ),
       body: Center(
         child: Column(children: <Widget>[

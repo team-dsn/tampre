@@ -6,6 +6,8 @@ import 'package:tampre/view/component/global.dart' as global;
 import 'package:tampre/view/component/user.dart';
 import 'package:tampre/view/profile_route.dart';
 
+import 'friend_profile.dart';
+
 class Home extends StatelessWidget {
   List<User> users;
   String title = 'ホーム';
