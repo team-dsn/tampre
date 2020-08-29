@@ -1,0 +1,12 @@
+[
+  {
+    "userId": "xxx",
+    "userName": "hoge",
+    "userImageUrl": "images/newton.jpeg"
+  },
+  {
+    "userId": "yyy",
+    "userName": "fuga",
+    "userImageUrl": "images/aristoteres.png"
+  }
+]

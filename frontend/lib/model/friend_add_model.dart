@@ -16,7 +16,11 @@ class FriendAddModel extends ChangeNotifier {
   User onSearchPressed(BuildContext context, String query){
     // ダミー処理。本来は、友達申請の対応処理完了時にfriendRequestNumberを1減らす。
     // footerの別アイコンを押すことでfooterの再描画がかかる。
-    global.friendRequestNumber = 0;
+    global.friendRequestNumber--;
+    if(global.friendRequestNumber < 0) {
+      global.friendRequestNumber = 0;
+    }
+    context.read<FooterModel>().onItemTapped(FooterModel.indexFriendAdd);
     User selectedUser;
     print("idは$query");
     people.forEach((user) {
@@ -25,7 +29,6 @@ class FriendAddModel extends ChangeNotifier {
         selectedUser = user;
       }
     });
-    context.read<FooterModel>().onItemTapped(FooterModel.indexFriendAdd);
     notifyListeners();
     return selectedUser;
   }
