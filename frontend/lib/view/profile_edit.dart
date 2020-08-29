@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:tampre/view/profile_edit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'component/user.dart';
 
-class Profile extends StatelessWidget {
-  final User myUser = User(id: '1', userName: '私', birthday: '19950303', icon: 'images/aristoteres.png', wishList: 'https://ja.wikipedia.org/wiki/newton');
+class ProfileEdit extends StatelessWidget {
+  ProfileEdit({this.user});
+  final User user;
+
 
   @override
   Widget build(BuildContext context) {
+    final bool isFriend = user != null;
     return Scaffold(
       appBar: AppBar(
         title: Text("プロフィール"),
@@ -21,10 +23,6 @@ class Profile extends StatelessWidget {
             ),
             onPressed:(){
               //todo:画面遷移
-              Navigator.push (
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileEdit(user:myUser),)
-              );
             },
           )
         ],
@@ -32,13 +30,20 @@ class Profile extends StatelessWidget {
       body: Center(
         child: Column(children: <Widget>[
           SizedBox(height: 8,),
-          Text(myUser.userName,
+          Text( isFriend ? user.userName : 'MyName',
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * 0.1,
               )),
           SizedBox(height: 10,),
-          Image.asset(
-            myUser.icon,
+          isFriend
+              ? Image.asset(
+            user.icon,
+            width: MediaQuery.of(context).size.width * 0.45,
+            height:MediaQuery.of(context).size.width * 0.45,
+          )
+              : Container(
+            color: Colors.grey,
+            child: Text('自分の写真'),
             width: MediaQuery.of(context).size.width * 0.45,
             height:MediaQuery.of(context).size.width * 0.45,
           ),
@@ -51,31 +56,31 @@ class Profile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
-                    children: <Widget>[
-                      Text('誕生日:',
-                        style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
-                      ),
-                      Text('${myUser.birthday.month}/${myUser.birthday.day}',
+                      children: <Widget>[
+                        Text('誕生日:',
                           style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
-                      ),
-                  ]
+                        ),
+                        Text( isFriend ? '${user.birthday.month}/${user.birthday.day}' : '自分の誕生日',
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
+                        ),
+                      ]
                   ),
                   Text('欲しいものリスト:',
-                        style: TextStyle(
+                      style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.05,
-                        )
-                      ),
+                      )
+                  ),
                   InkWell(
-                    child: Text(myUser.wishList,
+                    child: Text( isFriend ? user.wishList : '自分のほしいものリスト',
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * 0.05,
                           color: Colors.blue,
                           decoration: TextDecoration.underline,
-                            )
+                        )
                     ),
-                    onTap: () async {
-                      if (await canLaunch(myUser.wishList)) {
-                        await launch(myUser.wishList);
+                    onTap: ()async {
+                      if (await canLaunch(isFriend ? user.wishList : '自分のほしいものリスト')) {
+                        await launch(isFriend ? user.wishList : '自分のほしいものリスト');
                       };
                     },
                   ),

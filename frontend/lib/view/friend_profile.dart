@@ -4,41 +4,26 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'component/user.dart';
 
-class Profile extends StatelessWidget {
-  final User myUser = User(id: '1', userName: '私', birthday: '19950303', icon: 'images/aristoteres.png', wishList: 'https://ja.wikipedia.org/wiki/newton');
+class FriendProfile extends StatelessWidget {
+  FriendProfile({this.user});
+  final User user;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("プロフィール"),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('編集',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            onPressed:(){
-              //todo:画面遷移
-              Navigator.push (
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileEdit(user:myUser),)
-              );
-            },
-          )
-        ],
       ),
       body: Center(
         child: Column(children: <Widget>[
           SizedBox(height: 8,),
-          Text(myUser.userName,
+          Text(user.userName,
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * 0.1,
               )),
           SizedBox(height: 10,),
           Image.asset(
-            myUser.icon,
+            user.icon,
             width: MediaQuery.of(context).size.width * 0.45,
             height:MediaQuery.of(context).size.width * 0.45,
           ),
@@ -51,31 +36,31 @@ class Profile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
-                    children: <Widget>[
-                      Text('誕生日:',
-                        style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
-                      ),
-                      Text('${myUser.birthday.month}/${myUser.birthday.day}',
+                      children: <Widget>[
+                        Text('誕生日:',
                           style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
-                      ),
-                  ]
+                        ),
+                        Text('${user.birthday.month}/${user.birthday.day}',
+                          style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
+                        ),
+                      ]
                   ),
                   Text('欲しいものリスト:',
-                        style: TextStyle(
+                      style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.05,
-                        )
-                      ),
+                      )
+                  ),
                   InkWell(
-                    child: Text(myUser.wishList,
+                    child: Text(user.wishList,
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * 0.05,
                           color: Colors.blue,
                           decoration: TextDecoration.underline,
-                            )
+                        )
                     ),
-                    onTap: () async {
-                      if (await canLaunch(myUser.wishList)) {
-                        await launch(myUser.wishList);
+                    onTap: ()async {
+                      if (await canLaunch(user.wishList)) {
+                        await launch(user.wishList);
                       };
                     },
                   ),
