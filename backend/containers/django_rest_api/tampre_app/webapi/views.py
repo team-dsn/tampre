@@ -17,7 +17,6 @@ class UserInfoAPIView(views.APIView):
 
     def get(self, request, user_id, *args, **kwargs):
         """ ユーザモデル取得APIに対応するハンドラメソッド """
-
         # モデルオブジェクトを取得
         user = get_object_or_404(UserInfo, user_id=user_id)
         # シリアライザオブジェクトを作成
@@ -58,7 +57,7 @@ class FriendListAPIView(views.APIView):
     def get(self, request, user_id, *args, **kwargs):
         """ 友達情報取得APIに対応するハンドラメソッド """
         # モデルオブジェクトを取得
-        friends = FriendInfo.objects.filter(user_id=user_id, status=0)
+        friends = FriendInfo.objects.filter(user_id=user_id, status=1)
         # シリアライザオブジェクトを作成
         serializer = FriendInfoSerializer(instance=friends, many=True)
         # 友達情報をUserInfoDBから取得
@@ -74,7 +73,7 @@ class FriendDeleteAPIView(views.APIView):
     """ 友達を削除する """
     def delete(self, request, user_id, friend_id, *args, **kwargs):
         # モデルオブジェクトを取得
-        friend = get_object_or_404(FriendInfo, user_id=user_id, friend_id=friend_id)     
+        friend = get_object_or_404(FriendInfo, user_id=user_id, friend_id=friend_id)   
         # updateする
         data = {'status': 2}
         serializer = FriendInfoSerializer(instance=friend, data=data, partial=True)
@@ -86,7 +85,24 @@ class FriendDeleteAPIView(views.APIView):
 class FriendRequestAPIView(views.APIView):
     """ 友達申請を送る """
     def post(self, request, user_id, friend_id, *args, **kwargs):
-        # TODO: バリデーション：Userがいない場合を考慮する
+        # バリデーション：UserとFriendが存在するかの確認
+        user = get_object_or_404(UserInfo, user_id=user_id)
+        friend = get_object_or_404(UserInfo, user_id=friend_id)
+        # バリデーション：userとfriendが同じじゃないかの確認
+        if user == friend:
+            return Response('same id', status.HTTP_400_BAD_REQUEST)
+        # バリデーション：すでにユーザが申請を出している場合
+        if FriendInfo.objects.filter(user_id=user_id, friend_id=friend_id, status=0):
+            return Response('already requested', status.HTTP_400_BAD_REQUEST)
+        # バリデーション：すでにユーザと友達の場合
+        if FriendInfo.objects.filter(user_id=user_id, friend_id=friend_id, status=1):
+            return Response('already friend', status.HTTP_400_BAD_REQUEST)
+        # バリデーション：ユーザを一度ブロックしている場合 TODO:テストする
+        if FriendInfo.objects.filter(user_id=user_id, friend_id=friend_id, status=2):
+            friend_info = FriendInfo.objects.filter(user_id=user_id, friend_id=friend_id, status=2)
+            serializer = FriendInfoSerializer(friend_info[0], data={"user_id":user_id, "friend_id":friend_id, "status":0})
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
         # シリアライズオブジェクトを作成
         serializer = FriendInfoSerializer(data={"user_id":user_id, "friend_id":friend_id, "status":0})
         # バリデーションを実行
@@ -111,3 +127,4 @@ class FriendRequestedAPIView(views.APIView):
         serializer2 = UserInfoSerializer(instance=friend_list, many=True)
         # レスポンスオブジェクトを作成して返す
         return Response(serializer2.data, status.HTTP_200_OK)
+
