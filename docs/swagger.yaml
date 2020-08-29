@@ -27,32 +27,37 @@ paths:
         description: "ユーザID"
         required: true
         type: "string"
+        example: "abcde123"
       - name: "user_name"
         in: "query"
         description: "ユーザ名"
         required: true
         type: "string"
+        example: "Einstein"
       - name: "birthday"
         in: "query"
         description: "誕生日"
         required: true
         type: "string"
         format: "date"
-        pattern: "YYYY-MM-DD"
+        pattern: "YYYYMMDD"
         minLength: 0
-        maxLength: 10
+        maxLength: 8
+        example: "18790314"
       - name: "profile_image_url"
         in: "query"
         description: "プロフ画像のURL"
         required: true
         type: "string"
         format: "url"
+        example: "https://www.picture/XXXX.jpg"
       - name: "wish_list_url"
         in: "query"
         description: "欲しいものリストのURL"
         required: true
         type: "string"
         format: "url"
+        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
       responses:
         "200":
           description: "successful operation"
@@ -94,10 +99,12 @@ paths:
         description: "user_id"
         required: true
         type: "string"
+        example: "abcde123"
       - name: "user_name"
         in: "query"
         description: "ユーザ名"
         type: "string"
+        example: "Einstein"
       - name: "birthday"
         in: "query"
         description: "誕生日"
@@ -106,16 +113,19 @@ paths:
         pattern: "YYYY-MM-DD"
         minLength: 0
         maxLength: 10
+        example: "18790314"
       - name: "profile_image_url"
         in: "query"
         description: "プロフ画像のURL"
         type: "string"
         format: "url"
+        example: "https://www.picture/XXXX.jpg"
       - name: "wish_list_url"
         in: "query"
         description: "欲しいものリストのURL"
         type: "string"
         format: "url"
+        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
       responses:
         "200":
           description: "successful operation"
@@ -163,7 +173,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/User"
+              $ref: "#/definitions/Friend"
         "404":
           description: "No Data"
   /friends/{user_id}/{friend_id}:
@@ -225,21 +235,13 @@ paths:
         name: "user_id"
         type: "string"
         required: true
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
       responses:
         "200":
           description: "successful operation"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/User"
+              $ref: "#/definitions/Friend"
   /friends/requested/{user_id}/{friend_id}:
     post:
       tags:
@@ -276,14 +278,31 @@ definitions:
     properties:
       user_id:
         type: "string"
+        example: "abcde123"
       user_name:
         type: "string"
+        example: "Einstein"
       birthday:
-          type: "integer"
-          format: "int64"
+        type: "string"
+        example: "YYYYMMDD"
+      profile_image_url:
+        type: "string"
+        format: "url"
+        example: "https://www.image/XXX.jpg"  
       wish_list_url:
         type: "string"
         format: "url"
-      user_image_url:
-          type: "string"
-          format: "url"
+        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
+  Friend:
+    type: "object"
+    properties:
+      user_id:
+        type: "string"
+        example: "abcde123"
+      user_name:
+        type: "string"
+        example: "Einstein"
+      profile_image_url:
+        type: "string"
+        format: "url"
+        example: "https://www.image/XXX.jpg"

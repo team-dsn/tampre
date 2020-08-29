@@ -9,7 +9,11 @@ import 'package:tampre/view/profile_route.dart';
 import 'package:tampre/view/component/global.dart' as global;
 
 class FooterModel extends ChangeNotifier {
-  int selectedIndex = 0;
+  static const int indexHome      = 0;
+  static const int indexCalendar  = 1;
+  static const int indexFriendAdd = 2;
+  static const int indexProfile   = 3;
+  int selectedIndex = indexHome;
   final bottomNavigationBarItems = <BottomNavigationBarItem>[];
 
   FooterModel() {
