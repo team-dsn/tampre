@@ -7,5 +7,8 @@ urlpatterns = [
     path('api/healthcheck', lambda r: HttpResponse() ),
     path('api/user/<str:user_id>', views.UserInfoAPIView.as_view() ),
     path('api/user', views.UserInfoAPIView.as_view() ),
-    path('api/friends/request/<str:user_id>/<str:friend_id>', views.UserFriendRequest.as_view() ),
+    path('api/friends/<str:user_id>', views.FriendListAPIView.as_view() ),
+    path('api/friends/<str:user_id>/<str:friend_id>', views.FriendDeleteAPIView.as_view() ),
+    path('api/friends/request/<str:user_id>/<str:friend_id>', views.FriendRequestAPIView.as_view() ),
+    path('api/friends/requested/<str:user_id>', views.FriendRequestedAPIView.as_view() ),
 ]
