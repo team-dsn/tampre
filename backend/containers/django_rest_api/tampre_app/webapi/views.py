@@ -73,7 +73,7 @@ class FriendDeleteAPIView(views.APIView):
     """ 友達を削除する """
     def delete(self, request, user_id, friend_id, *args, **kwargs):
         # モデルオブジェクトを取得
-        friend = get_object_or_404(FriendInfo, user_id=user_id, friend_id=friend_id)   
+        friend = get_object_or_404(FriendInfo, user_id=user_id, friend_id=friend_id)
         # updateする
         data = {'status': 2}
         serializer = FriendInfoSerializer(instance=friend, data=data, partial=True)
@@ -103,6 +103,7 @@ class FriendRequestAPIView(views.APIView):
             serializer = FriendInfoSerializer(friend_info[0], data={"user_id":user_id, "friend_id":friend_id, "status":0})
             serializer.is_valid(raise_exception=True)
             serializer.save()
+            return Response(serializer.data, status.HTTP_201_CREATED)
         # シリアライズオブジェクトを作成
         serializer = FriendInfoSerializer(data={"user_id":user_id, "friend_id":friend_id, "status":0})
         # バリデーションを実行
@@ -127,7 +128,7 @@ class FriendRequestedAPIView(views.APIView):
         serializer2 = UserInfoSerializer(instance=friend_list, many=True)
         # レスポンスオブジェクトを作成して返す
         return Response(serializer2.data, status.HTTP_200_OK)
-
+    
     """ 自分に来ている友達申請を承諾する """
     def post(self, request, user_id, friend_id, *args, **kwargs):
         # バリデーション：UserとFriendが存在するかの確認
