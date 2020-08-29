@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tampre/view/home_route.dart';
 import 'package:tampre/view/profile_edit.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tampre/view/component/global.dart' as global;
@@ -21,11 +22,31 @@ class FriendProfile extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            onPressed:(){
+            onPressed:() {
               //todo:ユーザーを削除する
-            },
-          )
-        ],
+              showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('本当に削除しますか'),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('OK'),
+                        onPressed: () {
+                          global.users.remove(user);
+                          Navigator.push (
+                              context,
+                              MaterialPageRoute(builder: (context) => Home(),)
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+    ),
+      ],
       ),
       body: Center(
         child: Column(children: <Widget>[

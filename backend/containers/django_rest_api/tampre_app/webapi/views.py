@@ -79,8 +79,16 @@ class FriendDeleteAPIView(views.APIView):
         serializer = FriendInfoSerializer(instance=friend, data=data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+        user = get_object_or_404(FriendInfo, userId=friend_id, friendId=user_id)
+        # updateする
+        data = {'status': 2}
+        serializer = FriendInfoSerializer(instance=user, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
         # レスポンスオブジェクトを作成して返す
-        return Response(serializer.data, status.HTTP_200_OK)
+        return Response(status.HTTP_200_OK)
 
 class FriendRequestAPIView(views.APIView):
     """ 友達申請を送る """
