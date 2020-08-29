@@ -23,7 +23,7 @@ class Profile extends StatelessWidget {
               //todo:画面遷移
               Navigator.push (
                   context,
-                  MaterialPageRoute(builder: (context) => ProfileEdit(myUser),)
+                  MaterialPageRoute(builder: (context) => ProfileEdit(myUser:myUser),)
               );
             },
           )
@@ -81,6 +81,21 @@ class Profile extends StatelessWidget {
                   ),
                 ]),
           ),
+          // 一時的に追加
+          RaisedButton(
+            child: Text("初期登録画面",style: TextStyle(fontSize: 20)),
+            color: Colors.white,
+            shape: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            onPressed: () {
+              Navigator.push (
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileEdit(),)
+              );
+            },
+          ),
+          //一時的に追加ここまで
         ]),
       ),
     );
