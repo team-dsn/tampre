@@ -57,7 +57,7 @@ paths:
         required: true
         type: "string"
         format: "url"
-        example: "https://www.wishlist/XXXX.jpg"
+        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
       responses:
         "200":
           description: "successful operation"
@@ -125,7 +125,7 @@ paths:
         description: "欲しいものリストのURL"
         type: "string"
         format: "url"
-        example: "https://www.wishlist/XXXX.jpg"
+        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
       responses:
         "200":
           description: "successful operation"
@@ -288,11 +288,11 @@ definitions:
       profile_image_url:
         type: "string"
         format: "url"
-        example: "https://www.image/XXX.jp"  
+        example: "https://www.image/XXX.jpg"  
       wish_list_url:
         type: "string"
         format: "url"
-        example: "https://www.picture/XXX.jpg"
+        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
   Friend:
     type: "object"
     properties:
