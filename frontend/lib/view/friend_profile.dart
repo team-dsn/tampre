@@ -34,10 +34,8 @@ class FriendProfile extends StatelessWidget {
                         child: Text('OK'),
                         onPressed: () {
                           global.users.remove(user);
-                          Navigator.push (
-                              context,
-                              MaterialPageRoute(builder: (context) => Home(),)
-                          );
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
                         },
                       ),
                     ],
