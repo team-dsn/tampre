@@ -48,7 +48,7 @@ class FriendAdd extends StatelessWidget {
                       color: Colors.grey[300],
                       shape:OutlineInputBorder(),
                       onPressed: () {
-                        this.user = model.onSearchPressed(id);
+                        this.user = model.onSearchPressed(context, id);
                       },
                   )
                 ),
