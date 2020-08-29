@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:tampre/model/home_model.dart';
 import 'package:tampre/view/component/global.dart' as global;
 import 'package:tampre/view/component/user.dart';
 import 'package:tampre/view/profile_route.dart';
+
+import 'friend_profile.dart';
 
 class Home extends StatelessWidget {
   List<User> users;
@@ -34,7 +37,7 @@ class Home extends StatelessWidget {
                     //todo:画面遷移
                     await Navigator.push (
                     context,
-                    MaterialPageRoute(builder: (context) => Profile(user:user),)
+                    MaterialPageRoute(builder: (context) => FriendProfile(user:user),)
                       );
                     },
                     leading: CircleAvatar(
