@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:tampre/model/friend_add_model.dart';
+import 'package:tampre/view/component/global.dart' as global;
 
 import 'component/user.dart';
 
@@ -20,8 +21,50 @@ class FriendAdd extends StatelessWidget {
         body: Consumer<FriendAddModel>(builder: (context, model, child) {
             return Center(
               child: Column(children: <Widget>[
-                SizedBox(
-                height: 30,
+                RichText(
+                  text: TextSpan(
+                    text: '友達リクエスト',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ),
+                Expanded(
+                  child: ListView(
+                    children: global.friendCandidates.map((friendCandidate) =>
+                      ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: AssetImage(friendCandidate.icon),
+                        ),
+                        title: Text(friendCandidate.userName),
+                        trailing: Row(
+                          children: <Widget>[
+                            RaisedButton(
+                              child: Text("承認"),
+                              color: Colors.blueAccent,
+                              textColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              onPressed: () {},
+                            ),
+                            RaisedButton(
+                              child: Text("削除"),
+                              color: Colors.grey[300],
+                              textColor: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              onPressed: () {},
+                            ),
+                          ],
+                          mainAxisSize: MainAxisSize.min,
+                        ),
+                      )
+                    ).toList(),
+                  ),
                 ),
                 Row(children: <Widget>[
                   Spacer(),

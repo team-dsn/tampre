@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:quartet/quartet.dart' show slice;
+import 'package:tampre/view/component/friend_candidate.dart';
 
+import 'package:tampre/view/component/friend_candidate.dart';
 import 'package:tampre/view/component/global.dart' as global;
 import 'package:tampre/view/component/user.dart';
 import 'package:tampre/view/footer.dart';
@@ -11,6 +13,7 @@ import 'package:tampre/view/footer.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); 
   await loadJsonAsset();
+  await loadFriendRequestJsonAsset();
   runApp(App());
 }
 
@@ -33,6 +36,21 @@ Future<void> loadJsonAsset() async {
       );
     }
   });
+}
+
+Future<void> loadFriendRequestJsonAsset() async {
+  String loadFriendRequestData = await rootBundle.loadString('json/friend_requested.json');
+  final friendRequestedJsonResponse = json.decode(loadFriendRequestData);
+  friendRequestedJsonResponse.forEach((fc) {
+    global.friendCandidates.add(
+        FriendCandidate(
+          userId: fc['userId'],
+          userName: fc['userName'],
+          icon: fc['userImageUrl'],
+        )
+      );
+  });
+  global.friendRequestNumber = global.friendCandidates.length;
 }
 
 class App extends StatelessWidget {
