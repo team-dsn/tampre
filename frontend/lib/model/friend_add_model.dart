@@ -6,8 +6,6 @@ import 'package:tampre/view/component/user.dart';
 import 'package:tampre/model/footer_model.dart';
 
 class FriendAddModel extends ChangeNotifier {
-
-
   List<User> people = [
     User(id: 'aris', userName: 'アリストテレス', birthday: '19970125', icon: 'images/aristoteres.png', wishList: 'https://ja.wikipedia.org/wiki/newton'),
     User(id: 'newton', icon: 'images/newton.jpeg', userName: 'ニュートン', birthday: '19921221', wishList: 'https://ja.wikipedia.org/wiki/newton'),
