@@ -284,7 +284,7 @@ definitions:
       wishListUrl:
         type: "string"
         format: "url"
-        example: "https://www.picture/XXX.jp"
+        example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
   Friend:
     type: "object"
     properties:
