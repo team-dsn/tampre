@@ -29,13 +29,11 @@ paths:
         description: "ユーザID"
         required: true
         type: "string"
-        example: "abcde123"
       - name: "userName"
         in: "query"
         description: "ユーザ名"
         required: true
         type: "string"
-        example: "Einstein"
       - name: "birthday"
         in: "query"
         description: "誕生日"
@@ -45,21 +43,18 @@ paths:
         pattern: "YYYYMMDD"
         minLength: 0
         maxLength: 8
-        example: "18790314"
       - name: "profileImageUrl"
         in: "query"
         description: "プロフ画像のURL"
         required: true
         type: "string"
         format: "url"
-        example: "https://www.picture/XXXX.jpg"
       - name: "wishListUrl"
         in: "query"
         description: "欲しいものリストのURL"
         required: true
         type: "string"
         format: "url"
-        example: "https://www.wishlist/XXXX.jp"
       responses:
         "200":
           description: "successful operation"
@@ -101,12 +96,10 @@ paths:
         description: "userId"
         required: true
         type: "string"
-        example: "abcde123"
       - name: "userName"
         in: "query"
         description: "ユーザ名"
         type: "string"
-        example: "Einstein"
       - name: "birthday"
         in: "query"
         description: "誕生日"
@@ -115,19 +108,16 @@ paths:
         pattern: "YYYY-MM-DD"
         minLength: 0
         maxLength: 10
-        example: "18790314"
       - name: "profileImageUrl"
         in: "query"
         description: "プロフ画像のURL"
         type: "string"
         format: "url"
-        example: "https://www.picture/XXXX.jp"
       - name: "wishListUrl"
         in: "query"
         description: "欲しいものリストのURL"
         type: "string"
         format: "url"
-        example: "https://www.wishlist/XXXX.jp"
       responses:
         "200":
           description: "successful operation"
