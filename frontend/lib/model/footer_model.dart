@@ -110,5 +110,7 @@ class FooterModel extends ChangeNotifier {
     bottomNavigationBarItems[index] = updateActiveState(index);
     selectedIndex = index;
     notifyListeners();
+    if (index < 10) ;
+      index++;
   }
 }
