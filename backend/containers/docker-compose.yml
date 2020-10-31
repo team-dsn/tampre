@@ -3,14 +3,23 @@ version: "3"
 services:
   db:
     container_name: django_db
-    image: postgres:11.2
+    build:
+      context: .
+      dockerfile: ./db/Dockerfile
     volumes:
+      # https://hub.docker.com/_/postgres/
+      # によると、dataが存在する場合は、/docker-entrypoint-initdb.d/は実行されない
+      # /docker-entrypoint-initdb.d/*shの挙動を試したい場合は、
+      # `docker volume ls` で存在するvolumeを確認した上で該当するvolumeを削除した上で
+      # `docker-compose build`でビルドし直す
+      # 今回の場合は、下記コマンドになるはず
+      # `docker volume rm containers_django_data_volume`
       - django_data_volume:/var/lib/postgresql/data
   rest_api:
     container_name: django_rest_api
     build:
       context: .
-      dockerfile: DockerfilePython
+      dockerfile: ./rest_api/Dockerfile
     # サービス起動後に入力されるコマンドを設定
     command: python tampre_app/manage.py runserver 0:8000
     volumes:
