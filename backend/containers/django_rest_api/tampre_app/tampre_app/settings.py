@@ -130,5 +130,5 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
 
-ALLOWED_HOSTS = ['localhost', '127.1.0.0']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # 全てのアクセスを許可する設定。本番環境では使用しないこと。
