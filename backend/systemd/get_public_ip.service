@@ -1,0 +1,9 @@
+[Unit]
+Description=Get public ip address
+
+[Service]
+ExecStart=/usr/bin/python3 /home/maron_panic/App/tampre/backend/systemd/get_public_ip.py
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
