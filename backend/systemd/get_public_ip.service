@@ -1,8 +1,9 @@
 [Unit]
 Description=Get public ip address
+After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /home/maron_panic/App/tampre/backend/systemd/get_public_ip.py
+ExecStart=source /home/maron_panic/App/tampre/backend/systemd/get_public_ip.sh
 Type=simple
 
 [Install]
