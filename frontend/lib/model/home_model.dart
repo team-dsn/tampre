@@ -3,7 +3,7 @@ import 'package:tampre/view/component/user.dart';
 
 class HomeModel extends ChangeNotifier {
   List<User> users;
-
+  int afterbirthday = 0;
   HomeModel(this.users);
 
   sort() {
@@ -13,11 +13,15 @@ class HomeModel extends ChangeNotifier {
       int gapmonth = 400; //ずらし分の月　今は3ヶ月
       transformedDate = transformedDate - transformedTodayDate + gapmonth;
       user.transformedDate =  (transformedDate < 101 ? transformedDate + 1200 : transformedDate);
+      if(user.transformedDate <= gapmonth){
+        afterbirthday++ ;
+        print(afterbirthday);
+      }
     });
-
     Comparator<User> birthdayComparator = (a, b) =>
     a.transformedDate.compareTo(b.transformedDate);
     users.sort(birthdayComparator);
+    notifyListeners();
   }
 
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tampre/model/profile_edit_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:tampre/view/component/global.dart' as global;
+
 
 import 'component/user.dart';
 
@@ -46,7 +48,10 @@ class ProfileEdit extends StatelessWidget {
                 ),
               ),
               onPressed:(){
-                //todo:編集を登録する
+                global.myUser.userName = userNameEdittingController.text;
+                //global.myUser.birthday = birthdayEdittingController as DateTime ;
+                global.myUser.wishList = wishListEdittingController.text;
+                Navigator.pop(context);
               },
             )
           ],
