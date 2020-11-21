@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import subprocess
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -24,9 +24,6 @@ SECRET_KEY = 'lbmbz1x$5jw%mj^s4n1%fp&)o%d^1fp*gz307fo88x2ku!41d2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -87,7 +84,6 @@ DATABASES = {
   }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -106,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -120,7 +115,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -130,5 +124,9 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-# 全てのアクセスを許可する設定。本番環境では使用しないこと。
+p = subprocess.Popen('curl inet-ip.info', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+out, err = p.communicate()
+public_ip = out.decode('ascii').replace("\n", "")
+
+# ローカル環境で試す場合は、['localhost', '127.0.0.1']に設定する
+ALLOWED_HOSTS = [public_ip]
