@@ -19,27 +19,21 @@ void main() async {
 }
 
 Future<void> loadJsonAsset() async {
-  // String loadData = await rootBundle.loadString('json/data.json');
-  // final jsonResponse = json.decode(loadData);
-  http.Response res = await http.get('${DotEnv().env["PRD_URL"]}/friends/${global.myUser.userId}');
-  final jsonResponse = jsonDecode(res.body);
-  print(jsonResponse);
-  jsonResponse.forEach((key,value) {
-    for(dynamic v in value){
-      String month = slice('0' + v['birthday']['month'], -2);
-      String day = slice('0' + v['birthday']['day'], -2);
-      String birthday = '${v['birthday']['year']}${month}${day}';
-      global.users.add(
-        User(
-          userId: v['userId'],
-          birthday: birthday,
-          profileImageUrl: v['profileImageUrl'],
-          userName: v['userName'],
-          wishListUrl: v['wishListUrl']
-        )
-      );
-    }
-  });
+  http.Response res = await http.get(
+      '${DotEnv().env["PRD_URL"]}/friends/${global.myUser.userId}',
+      headers: {'Content-Type': 'application/json'});
+  final jsonResponse = jsonDecode(utf8.decode(res.bodyBytes));
+  for (var user in jsonResponse) {
+    String month = slice('0' + user['birthday']['month'], -2);
+    String day = slice('0' + user['birthday']['day'], -2);
+    String birthday = '${user['birthday']['year']}${month}${day}';
+    global.users.add(User(
+        userId: user['userId'],
+        birthday: birthday,
+        profileImageUrl: user['profileImageUrl'],
+        userName: user['userName'],
+        wishListUrl: user['wishListUrl']));
+  }
 }
 
 Future<void> loadFriendRequestJsonAsset() async {
