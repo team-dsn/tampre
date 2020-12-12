@@ -2,7 +2,7 @@
   "users": [
     {
       "userId": "1",
-      "name": "ニュートン",
+      "userName": "ニュートン",
       "image": "images/newton.jpeg",
       "birthday": {
         "year": "1990",
@@ -13,7 +13,7 @@
     },
     {
       "userId": "2",
-      "name": "アリストテレス",
+      "userName": "アリストテレス",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -24,7 +24,7 @@
     },
     {
       "userId": "3",
-      "name": "ニュー子ン",
+      "userName": "ニュー子ン",
       "image": "images/newton.jpeg",
       "birthday": {
         "year": "1985",
@@ -35,7 +35,7 @@
     },
     {
       "userId": "4",
-      "name": "アリス子テレス",
+      "userName": "アリス子テレス",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1999",
@@ -46,7 +46,7 @@
     },
     {
       "userId": "5",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -57,7 +57,7 @@
     },
     {
       "userId": "6",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -68,7 +68,7 @@
     },
     {
       "userId": "7",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -79,7 +79,7 @@
     },
     {
       "userId": "8",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -90,7 +90,7 @@
     },
     {
       "userId": "9",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -101,7 +101,7 @@
     },
     {
       "userId": "10",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -112,7 +112,7 @@
     },
     {
       "userId": "11",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -123,7 +123,7 @@
     },
     {
       "userId": "12",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -134,7 +134,7 @@
     },
     {
       "userId": "13",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -145,7 +145,7 @@
     },
     {
       "userId": "14",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -156,7 +156,7 @@
     },
     {
       "userId": "15",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -167,7 +167,7 @@
     },
     {
       "userId": "16",
-      "name": "アリストテレツー",
+      "userName": "アリストテレツー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
@@ -178,7 +178,7 @@
     },
     {
       "userId": "17",
-      "name": "アリストテレスリー",
+      "userName": "アリストテレスリー",
       "image": "images/aristoteres.png",
       "birthday": {
         "year": "1997",
