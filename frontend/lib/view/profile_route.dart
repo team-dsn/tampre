@@ -95,7 +95,7 @@ class Profile extends StatelessWidget {
                             )
                         ),
                         InkWell(
-                          child: Text(global.myUser.wishList,
+                          child: Text(global.myUser.wishListUrl,
                               style: TextStyle(
                                 fontSize: MediaQuery
                                     .of(context)
@@ -106,8 +106,8 @@ class Profile extends StatelessWidget {
                               )
                           ),
                           onTap: () async {
-                            if (await canLaunch(global.myUser.wishList)) {
-                              await launch(global.myUser.wishList);
+                            if (await canLaunch(global.myUser.wishListUrl)) {
+                              await launch(global.myUser.wishListUrl);
                             };
                           },
                         ),

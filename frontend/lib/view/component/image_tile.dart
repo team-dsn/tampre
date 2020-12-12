@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class ImageTile extends StatelessWidget {
   String icon;
-  String username;
+  String userName;
   String birthday;
 
 
-  ImageTile({String icon, String username, String birthday}) {
+  ImageTile({String icon, String userName, String birthday}) {
     this.icon = icon;
-    this.username = username;
+    this.userName = userName;
     this.birthday = birthday;
   }
 
@@ -19,6 +19,6 @@ class ImageTile extends StatelessWidget {
           backgroundImage: AssetImage(this.icon), // no matter how big it is, it won't overflow
         ),
         title: Text(this.birthday),
-        subtitle: Text(this.username));
+        subtitle: Text(this.userName));
   }
 }

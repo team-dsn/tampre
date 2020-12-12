@@ -17,14 +17,14 @@ class ProfileEdit extends StatelessWidget {
 
       final userNameEdittingController = TextEditingController();
       final birthdayEdittingController = TextEditingController();
-      final wishListEdittingController = TextEditingController();
+      final wishListUrlEdittingController = TextEditingController();
 
       bool isEditing = myUser != null;
       if (isEditing){
         userNameEdittingController.text = myUser.userName;
         birthdayEdittingController.text =
         '${myUser.birthday.month}/${myUser.birthday.day}';
-        wishListEdittingController.text = myUser.wishList;
+        wishListUrlEdittingController.text = myUser.wishListUrl;
 
       };
 
@@ -50,7 +50,7 @@ class ProfileEdit extends StatelessWidget {
               onPressed:(){
                 global.myUser.userName = userNameEdittingController.text;
                 //global.myUser.birthday = birthdayEdittingController as DateTime ;
-                global.myUser.wishList = wishListEdittingController.text;
+                global.myUser.wishListUrl = wishListUrlEdittingController.text;
                 Navigator.pop(context);
               },
             )
@@ -159,7 +159,7 @@ class ProfileEdit extends StatelessWidget {
                               .size
                               .width * 0.10,
                           child: TextField(
-                            controller: wishListEdittingController,
+                            controller: wishListUrlEdittingController,
                             style: TextStyle(fontSize: MediaQuery
                                 .of(context)
                                 .size

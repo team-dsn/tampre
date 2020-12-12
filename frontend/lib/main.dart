@@ -27,11 +27,11 @@ Future<void> loadJsonAsset() async {
       String birthday = '${v['birthday']['year']}${month}${day}';
       global.users.add(
         User(
-          id: v['id'],
+          userId: v['userId'],
           birthday: birthday,
-          icon: v['image'],
-          userName: v['name'],
-          wishList: v['wishList']
+          icon: v['profileImageUrl'],
+          userName: v['userName'],
+          wishListUrl: v['wishListUrl']
         )
       );
     }
@@ -46,7 +46,7 @@ Future<void> loadFriendRequestJsonAsset() async {
         FriendCandidate(
           userId: fc['userId'],
           userName: fc['userName'],
-          icon: fc['userImageUrl'],
+          icon: fc['profileImageUrl'],
         )
       );
   });

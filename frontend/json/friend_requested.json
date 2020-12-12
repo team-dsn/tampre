@@ -2,11 +2,11 @@
   {
     "userId": "xxx",
     "userName": "hoge",
-    "userImageUrl": "images/newton.jpeg"
+    "profileImageUrl": "images/newton.jpeg"
   },
   {
     "userId": "yyy",
     "userName": "fuga",
-    "userImageUrl": "images/aristoteres.png"
+    "profileImageUrl": "images/aristoteres.png"
   }
 ]

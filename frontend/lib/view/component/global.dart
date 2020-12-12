@@ -5,7 +5,7 @@ import 'package:tampre/view/component/friend_candidate.dart';
 // 現状、DBの代わりにjson/data.jsonを使用している
 List<User> users = [];
 
-User myUser = User(id: '1', userName: '私', birthday: '19950303', icon: 'images/aristoteres.png', wishList: 'https://ja.wikipedia.org/wiki/newton');
+User myUser = User(userId: '1', userName: '私', birthday: '19950303', icon: 'images/aristoteres.png', wishListUrl: 'https://ja.wikipedia.org/wiki/newton');
 
 // DBから取得したデータを格納する
 // 現状、DBの代わりにjson/friend_requested.jsonを使用している

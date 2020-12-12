@@ -4,7 +4,7 @@ import 'package:tampre/model/friend_add_model.dart';
 import 'package:tampre/view/component/global.dart' as global;
 import 'component/user.dart';
 class FriendAdd extends StatelessWidget {
-  String id;
+  String userId;
   User user;
   @override
   Widget build(BuildContext context) {
@@ -79,8 +79,8 @@ class FriendAdd extends StatelessWidget {
                           labelText: '友達ID',
                         ),
                       onChanged: (text){
-                        id = text;
-                        print(id);
+                        userId = text;
+                        print(userId);
                       }
                     ),
                   ),
@@ -93,7 +93,7 @@ class FriendAdd extends StatelessWidget {
                         color: Colors.grey[300],
                         shape:OutlineInputBorder(),
                         onPressed: () {
-                          this.user = model.onSearchPressed(context, id);
+                          this.user = model.onSearchPressed(context, userId);
                         },
                     )
                   ),
