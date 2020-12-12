@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tampre/model/profile_edit_model.dart';
+import 'package:tampre/view/wishlist_method.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tampre/view/component/global.dart' as global;
-
 
 import 'component/user.dart';
 
@@ -11,10 +11,8 @@ class ProfileEdit extends StatelessWidget {
   ProfileEdit({this.myUser});
   final User myUser;
 
-
   @override
   Widget build(BuildContext context) {
-
       final userNameEdittingController = TextEditingController();
       final birthdayEdittingController = TextEditingController();
       final wishListUrlEdittingController = TextEditingController();
@@ -180,7 +178,10 @@ class ProfileEdit extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                   onPressed: () {
-                   //todo 欲しいものリストの登録方法の説明ページへ
+                    Navigator.push (
+                        context,
+                        MaterialPageRoute(builder: (context) => wishListMethod(),)
+                    );
                   },
                 ),
               ]),
