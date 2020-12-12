@@ -128,4 +128,5 @@ p = subprocess.Popen('curl inet-ip.info', shell=True, stdout=subprocess.PIPE, st
 out, err = p.communicate()
 public_ip = out.decode('ascii').replace("\n", "")
 
-ALLOWED_HOSTS = [public_ip, 'localhost']
+# ローカルで開発する際は、'localhost'や'127.0.0.1'を追加する
+ALLOWED_HOSTS = [public_ip]
