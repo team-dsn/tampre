@@ -1,14 +1,14 @@
 class User {
   String _userId;
   String _userName;
-  String _icon;
+  String _profileImageUrl;
   DateTime _birthday;
   int transformedDate;
   String _wishListUrl;
 
   String get userId => _userId;
   String get userName => _userName;
-  String get icon => _icon;
+  String get profileImageUrl => _profileImageUrl;
   DateTime get birthday => _birthday;
   String get wishListUrl => _wishListUrl;
 
@@ -17,11 +17,11 @@ class User {
   void set wishListUrl(String wishListUrl) {_wishListUrl = wishListUrl;}
 
 
-  User({String userId, String userName, String icon, String birthday, String wishListUrl}){
+  User({String userId, String userName, String profileImageUrl, String birthday, String wishListUrl}){
     this._userId  = userId;
     this._userName = userName;
     this._birthday = DateTime.parse(birthday);
-    this._icon = icon;
+    this._profileImageUrl = profileImageUrl;
     this._wishListUrl = wishListUrl;
   }
 }

@@ -55,7 +55,7 @@ class FriendProfile extends StatelessWidget {
               )),
           SizedBox(height: 10,),
           Image.asset(
-            user.icon,
+            user.profileImageUrl,
             width: MediaQuery.of(context).size.width * 0.45,
             height:MediaQuery.of(context).size.width * 0.45,
           ),
