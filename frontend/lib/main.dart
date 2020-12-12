@@ -29,7 +29,7 @@ Future<void> loadJsonAsset() async {
         User(
           userId: v['userId'],
           birthday: birthday,
-          icon: v['image'],
+          icon: v['profileImageUrl'],
           userName: v['userName'],
           wishList: v['wishList']
         )
@@ -46,7 +46,7 @@ Future<void> loadFriendRequestJsonAsset() async {
         FriendCandidate(
           userId: fc['userId'],
           userName: fc['userName'],
-          icon: fc['userImageUrl'],
+          icon: fc['profileImageUrl'],
         )
       );
   });
