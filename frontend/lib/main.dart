@@ -27,7 +27,7 @@ Future<void> loadJsonAsset() async {
       String birthday = '${v['birthday']['year']}${month}${day}';
       global.users.add(
         User(
-          id: v['id'],
+          userId: v['userId'],
           birthday: birthday,
           icon: v['image'],
           userName: v['name'],

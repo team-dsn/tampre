@@ -7,8 +7,8 @@ import 'package:tampre/model/footer_model.dart';
 
 class FriendAddModel extends ChangeNotifier {
   List<User> people = [
-    User(id: 'aris', userName: 'アリストテレス', birthday: '19970125', icon: 'images/aristoteres.png', wishList: 'https://ja.wikipedia.org/wiki/newton'),
-    User(id: 'newton', icon: 'images/newton.jpeg', userName: 'ニュートン', birthday: '19921221', wishList: 'https://ja.wikipedia.org/wiki/newton'),
+    User(userId: 'aris', userName: 'アリストテレス', birthday: '19970125', icon: 'images/aristoteres.png', wishList: 'https://ja.wikipedia.org/wiki/newton'),
+    User(userId: 'newton', icon: 'images/newton.jpeg', userName: 'ニュートン', birthday: '19921221', wishList: 'https://ja.wikipedia.org/wiki/newton'),
   ];
 
   User onSearchPressed(BuildContext context, String query){
@@ -20,9 +20,9 @@ class FriendAddModel extends ChangeNotifier {
     }
     context.read<FooterModel>().onItemTapped(FooterModel.indexFriendAdd);
     User selectedUser;
-    print("idは$query");
+    print("userIdは$query");
     people.forEach((user) {
-      if(user.id == query){
+      if(user.userId == query){
         print("君は${user.userName}");
         selectedUser = user;
       }
