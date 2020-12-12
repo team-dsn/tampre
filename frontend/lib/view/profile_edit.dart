@@ -88,7 +88,7 @@ class ProfileEdit extends StatelessWidget {
                       await model.showImagePicker();
                     },
                     child: myUser != null
-                        ? Image.asset(myUser.icon,
+                        ? Image.asset(myUser.profileImageUrl,
                     height:MediaQuery.of(context).size.width * 0.5
                       ,)
                         : Container(

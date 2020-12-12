@@ -21,6 +21,8 @@ dependencies:
   url_launcher: ^3.0.3
   quartet: ^0.1.1
   image_picker: ^0.6.7+7
+  http: ^0.12.0
+  flutter_dotenv: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +33,7 @@ flutter:
   assets:
     - images/
     - json/
+    - .env
 
 flutter_native_splash:
   image: "images/gift.png" 

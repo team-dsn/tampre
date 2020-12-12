@@ -7,8 +7,8 @@ import 'package:tampre/model/footer_model.dart';
 
 class FriendAddModel extends ChangeNotifier {
   List<User> people = [
-    User(userId: 'aris', userName: 'アリストテレス', birthday: '19970125', icon: 'images/aristoteres.png', wishListUrl: 'https://ja.wikipedia.org/wiki/newton'),
-    User(userId: 'newton', icon: 'images/newton.jpeg', userName: 'ニュートン', birthday: '19921221', wishListUrl: 'https://ja.wikipedia.org/wiki/newton'),
+    User(userId: 'aris', userName: 'アリストテレス', birthday: '19970125', profileImageUrl: 'images/aristoteres.png', wishListUrl: 'https://ja.wikipedia.org/wiki/newton'),
+    User(userId: 'newton', profileImageUrl: 'images/newton.jpeg', userName: 'ニュートン', birthday: '19921221', wishListUrl: 'https://ja.wikipedia.org/wiki/newton'),
   ];
 
   User onSearchPressed(BuildContext context, String query){

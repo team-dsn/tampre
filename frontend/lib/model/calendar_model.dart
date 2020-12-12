@@ -26,7 +26,7 @@ class CalendarModel extends ChangeNotifier {
             borderRadius: BorderRadius.all(Radius.circular(1000)),
             border: Border.all(color: Colors.blue, width: 2.0)),
             child: new CircleAvatar(
-              backgroundImage: AssetImage(user.icon),
+              backgroundImage: AssetImage(user.profileImageUrl),
             ),
           ),
         ),

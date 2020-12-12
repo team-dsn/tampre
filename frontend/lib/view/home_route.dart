@@ -41,7 +41,7 @@ class Home extends StatelessWidget {
                       );
                     },
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage(user.icon), // no matter how big it is, it won't overflow
+                      backgroundImage: AssetImage(user.profileImageUrl), // no matter how big it is, it won't overflow
                     ),
                     title: Text('${user.birthday.month}/${user.birthday.day}'),
                     subtitle: Text(user.userName)

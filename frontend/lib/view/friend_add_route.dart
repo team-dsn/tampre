@@ -37,7 +37,7 @@ class FriendAdd extends StatelessWidget {
                           height: 60.0,
                           child: ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: AssetImage(friendCandidate.icon),
+                              backgroundImage: AssetImage(friendCandidate.profileImageUrl),
                             ),
                             title: Text(friendCandidate.userName),
                             trailing: Row(
@@ -114,7 +114,7 @@ class FriendAdd extends StatelessWidget {
                   ),
                   user != null
                   ? Image.asset(
-                    user.icon,
+                    user.profileImageUrl,
                       width: MediaQuery.of(context).size.width * 0.5,
                       height:MediaQuery.of(context).size.width * 0.5,
                   )

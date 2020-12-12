@@ -47,7 +47,7 @@ class Profile extends StatelessWidget {
                     )),
                 SizedBox(height: 10,),
                 Image.asset(
-                  global.myUser.icon,
+                  global.myUser.profileImageUrl,
                   width: MediaQuery
                       .of(context)
                       .size
