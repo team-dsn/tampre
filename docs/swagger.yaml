@@ -24,37 +24,39 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "userId"
-        in: "query"
-        description: "ユーザID"
+      - name: "body"
+        in: "body"
+        description: "更新情報のjson"
         required: true
-        type: "string"
-      - name: "userName"
-        in: "query"
-        description: "ユーザ名"
-        required: true
-        type: "string"
-      - name: "birthday"
-        in: "query"
-        description: "誕生日"
-        required: true
-        type: "string"
-        format: "date"
-        pattern: "YYYYMMDD"
-        minLength: 0
-        maxLength: 8
-      - name: "profileImageUrl"
-        in: "query"
-        description: "プロフ画像のURL"
-        required: true
-        type: "string"
-        format: "url"
-      - name: "wishListUrl"
-        in: "query"
-        description: "欲しいものリストのURL"
-        required: true
-        type: "string"
-        format: "url"
+        schema:
+          type: "object"
+          properties:
+            userId:
+              type: "string"
+              example: "fugafuga"
+            userName:
+              type: "string"
+              example: "アリストテレス"
+            birthday:
+              type: "object"
+              properties:
+                year:
+                  type: "string"
+                  example: "2000"
+                month:
+                  type: "string"
+                  example: "03"
+                day:
+                  type: "string"
+                  example: "05"
+            profileImageUrl:
+              type: "string"
+              format: "url"
+              example: "https://www.image/XXX.jpg"
+            wishListUrl:
+              type: "string"
+              format: "url"
+              example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
       responses:
         "200":
           description: "successful operation"
@@ -96,28 +98,33 @@ paths:
         description: "userId"
         required: true
         type: "string"
-      - name: "userName"
-        in: "query"
-        description: "ユーザ名"
-        type: "string"
-      - name: "birthday"
-        in: "query"
-        description: "誕生日"
-        type: "string"
-        format: "date"
-        pattern: "YYYY-MM-DD"
-        minLength: 0
-        maxLength: 10
-      - name: "profileImageUrl"
-        in: "query"
-        description: "プロフ画像のURL"
-        type: "string"
-        format: "url"
-      - name: "wishListUrl"
-        in: "query"
-        description: "欲しいものリストのURL"
-        type: "string"
-        format: "url"
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            userName:
+              type: "string"
+              example: "phillip"
+            birthday:
+              type: "object"
+              properties:
+                year:
+                  type: "string"
+                  example: "2000"
+                month:
+                  type: "string"
+                  example: "2"
+                day:
+                  type: "string"
+                  example: "10"
+            profileImageUrl:
+              type: "string"
+              example: "https://www.image/phillip.jpg"
+            wishListUrl:
+              type: "string"
+              example: "https://www.amazon.co.jp/hz/wishlist/ls/XXXXXXX"
       responses:
         "200":
           description: "successful operation"
@@ -165,7 +172,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Friend"
+              $ref: "#/definitions/User"
         "404":
           description: "No Data"
   /friends/{userId}/{friendId}:
@@ -275,8 +282,14 @@ definitions:
         type: "string"
         example: "Einstein"
       birthday:
-        type: "string"
-        example: "YYYYMMDD"
+        type: "object"
+        properties:
+          year:
+            type: "string"
+          month:
+            type: "string"
+          day:
+            type: "string"
       profileImageUrl:
         type: "string"
         format: "url"
