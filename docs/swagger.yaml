@@ -311,3 +311,4 @@ definitions:
         type: "string"
         format: "url"
         example: "https://www.image/XXX.jpg"
+        
