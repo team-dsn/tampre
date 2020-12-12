@@ -48,6 +48,9 @@ class Home extends StatelessWidget {
             )).toList();
             return ListView(
                 children:userTiles,
+                controller: ScrollController(
+                  initialScrollOffset: 70.0 * model.afterbirthday
+                ),
             );
           },
           ),

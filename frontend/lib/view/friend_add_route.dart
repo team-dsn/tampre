@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:tampre/model/friend_add_model.dart';
 import 'package:tampre/view/component/global.dart' as global;
-
 import 'component/user.dart';
-
 class FriendAdd extends StatelessWidget {
   String id;
   User user;
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<FriendAddModel>(
@@ -82,10 +78,10 @@ class FriendAdd extends StatelessWidget {
                           border: OutlineInputBorder(),
                           labelText: '友達ID',
                         ),
-                    onChanged: (text){
-                      id = text;
-                      print(id);
-                    }
+                      onChanged: (text){
+                        id = text;
+                        print(id);
+                      }
                     ),
                   ),
                     Spacer(),
@@ -115,7 +111,7 @@ class FriendAdd extends StatelessWidget {
                 ),
                   SizedBox(
                   height: 10,
-                ),
+                  ),
                   user != null
                   ? Image.asset(
                     user.icon,
@@ -132,12 +128,8 @@ class FriendAdd extends StatelessWidget {
                         size:MediaQuery.of(context).size.width * 0.5
                       ),
                   ),
-  
                   SizedBox(
-                  height: 40,
-                ),
-                  ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width * 0.6,
+                  width: MediaQuery.of(context).size.width * 0.6,
                   height: 50,
                     child: user != null
                         ? RaisedButton(
@@ -149,12 +141,14 @@ class FriendAdd extends StatelessWidget {
                           onPressed: () {},
                         )
                         : Container(),
-                ),
-              ]),
-            )
-          );
-        }),
-      )
-    );
-  }
+                      ),
+                    ]
+                  )
+                )
+              );
+            }
+          ),
+        ),
+      );
+    }
 }

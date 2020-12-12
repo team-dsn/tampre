@@ -12,6 +12,11 @@ class User {
   DateTime get birthday => _birthday;
   String get wishList => _wishList;
 
+  void set userName(String userName) {_userName = userName;}
+  void set birthday(DateTime birthday) {_birthday = birthday;}
+  void set wishList(String wishList) {_wishList = wishList;}
+
+
   User({String id, String userName, String icon, String birthday, String wishList}){
     this._id  = id;
     this._userName = userName;
