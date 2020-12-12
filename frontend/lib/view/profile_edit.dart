@@ -5,17 +5,14 @@ import 'package:tampre/view/wishlist_method.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tampre/view/component/global.dart' as global;
 
-
 import 'component/user.dart';
 
 class ProfileEdit extends StatelessWidget {
   ProfileEdit({this.myUser});
   final User myUser;
 
-
   @override
   Widget build(BuildContext context) {
-
       final userNameEdittingController = TextEditingController();
       final birthdayEdittingController = TextEditingController();
       final wishListUrlEdittingController = TextEditingController();
