@@ -31,7 +31,7 @@ Future<void> loadJsonAsset() async {
           birthday: birthday,
           icon: v['profileImageUrl'],
           userName: v['userName'],
-          wishList: v['wishList']
+          wishListUrl: v['wishListUrl']
         )
       );
     }

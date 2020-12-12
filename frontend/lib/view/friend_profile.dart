@@ -83,7 +83,7 @@ class FriendProfile extends StatelessWidget {
                       )
                   ),
                   InkWell(
-                    child: Text(user.wishList,
+                    child: Text(user.wishListUrl,
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * 0.05,
                           color: Colors.blue,
@@ -91,8 +91,8 @@ class FriendProfile extends StatelessWidget {
                         )
                     ),
                     onTap: ()async {
-                      if (await canLaunch(user.wishList)) {
-                        await launch(user.wishList);
+                      if (await canLaunch(user.wishListUrl)) {
+                        await launch(user.wishListUrl);
                       };
                     },
                   ),
