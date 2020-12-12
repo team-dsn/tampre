@@ -1,5 +1,5 @@
 from webapi.models import UserInfo, FriendInfo
-from webapi.serializers import UserInfoSerializer, FriendInfoSerializer, UserInfoSerializerForFriend
+from webapi.serializers import UserInfoSerializer, FriendInfoSerializer
 from rest_framework import generics, status, views
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -65,7 +65,7 @@ class FriendListAPIView(views.APIView):
         for friend in serializer.data:
             friend_list.append(UserInfo.objects.get(userId=friend['friendId']))
         # シリアライザオブジェクトを作成  
-        serializer2 = UserInfoSerializerForFriend(instance=friend_list, many=True)
+        serializer2 = UserInfoSerializer(instance=friend_list, many=True)
         # レスポンスオブジェクトを作成して返す
         return Response(serializer2.data, status.HTTP_200_OK)
 
@@ -133,7 +133,7 @@ class FriendRequestedAPIView(views.APIView):
         for friend in serializer.data:
             friend_list.append(UserInfo.objects.get(userId=friend['userId']))
         # シリアライザオブジェクトを作成  
-        serializer2 = UserInfoSerializerForFriend(instance=friend_list, many=True)
+        serializer2 = UserInfoSerializer(instance=friend_list, many=True)
         # レスポンスオブジェクトを作成して返す
         return Response(serializer2.data, status.HTTP_200_OK)
     
