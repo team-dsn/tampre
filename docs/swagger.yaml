@@ -49,10 +49,9 @@ paths:
                 day:
                   type: "string"
                   example: "05"
-            profileImageUrl:
+            profileImageBase64:
               type: "string"
-              format: "url"
-              example: "https://www.image/XXX.jpg"
+              example: "XXXXX"
             wishListUrl:
               type: "string"
               format: "url"
