@@ -9,13 +9,23 @@ import 'package:tampre/view/component/user.dart';
 import 'package:tampre/view/footer.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await loadProfile();
   await DotEnv().load('.env');
   await loadJsonAsset();
   await loadFriendRequestJsonAsset();
   runApp(App());
+}
+
+Future<void> loadProfile() async {
+  print("load profile");
+  // 次の行は本来必要無い
+  // 初期登録前でユーザーIDない場合は、loadJsonAsset()を呼ばないようにしておく必要あり
+  await User.setMyUserId('1');
+  global.myUser.userId = await User.getMyUserId();
 }
 
 Future<void> loadJsonAsset() async {

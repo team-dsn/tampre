@@ -9,10 +9,15 @@ import 'package:tampre/view/component/global.dart' as global;
 import 'component/user.dart';
 
 class Profile extends StatelessWidget {
+  Future<String> _getMyUserId() async {
+    return await User.getMyUserId();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ProfileModel>(
+    return FutureBuilder<String>(
+      future: _getMyUserId(),
+      builder: (context, AsyncSnapshot<String> snapshot) { return ChangeNotifierProvider<ProfileModel>(
       create: (_) => ProfileModel(),
       child: Scaffold(
         appBar: AppBar(
@@ -37,6 +42,14 @@ class Profile extends StatelessWidget {
           builder: (context, model, child) {
             return Center(
               child: Column(children: <Widget>[
+                SizedBox(height: 8,),
+                Text('ID: ' + (snapshot.data ?? ''),
+                    style: TextStyle(
+                      fontSize: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.07,
+                    )),
                 SizedBox(height: 8,),
                 Text(global.myUser.userName,
                     style: TextStyle(
@@ -133,6 +146,8 @@ class Profile extends StatelessWidget {
           },
         ),
       ),
+    );
+    }
     );
   }
 }
