@@ -129,4 +129,5 @@ out, err = p.communicate()
 public_ip = out.decode('ascii').replace("\n", "")
 
 # ローカルで開発する際は、'localhost'や'127.0.0.1'を追加する
-ALLOWED_HOSTS = [public_ip]
+#ALLOWED_HOSTS = [public_ip]
+ALLOWED_HOSTS = [*]
