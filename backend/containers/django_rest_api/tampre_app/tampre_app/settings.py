@@ -138,11 +138,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
-# 一旦澤のgcpで実験
-GS_BUCKET_NAME = 'hsawa0709_test_storage'
+GS_BUCKET_NAME = 'tampre_profile_images'
 
 from google.oauth2 import service_account
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, 'gcp_test.json'),
+    os.path.join(BASE_DIR, 'tampre-2fa59c6736e1.json'),
 )
