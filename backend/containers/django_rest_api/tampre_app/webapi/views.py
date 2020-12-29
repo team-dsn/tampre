@@ -3,14 +3,39 @@ from webapi.serializers import UserInfoSerializer, FriendInfoSerializer
 from rest_framework import generics, status, views
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from google.cloud import storage
+from google.oauth2 import service_account
+import base64
 
-class UserInfoCreate(generics.ListCreateAPIView):
-    queryset = UserInfo.objects.all()
-    serializer_class = UserInfoSerializer
+# gcpの情報
+SERVICE_ACCOUNT_INFO = {
+  "type": "service_account",
+  "project_id": "tampre",
+  "private_key_id": "2fa59c6736e149fe23b7dc3b02cdb37c1dfca8b7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCty53qAyHVR/Do\n0t9wxuXfma3oVwCXAhRZ8WSUiXhIoIzZsxUv340Dx1JDa/tKcXd1Z+7aoJ727Zcf\n4IIuUbBj3YdxpmPKtKScwNNtXD18vNOjEw3NLCcT41qa6q1oMl4/RlwA2d+JAxa1\nPMpAHWkxZ0VuKnwQuFFIZxW1MsOF+tam4ZRp/xnSaywNi6ab6hBmeAih2s2IEfEf\n99MOffvJAMLNoB05zYgaCs9rzvSEQVK4V0wCKbJii8U/2mCMzfbF7Wn4IpH4NhH1\nDxaP2r2v0aIZxs8n6GobwOWvKqGgzeCmQTigfciZ++f+4DhLeR9z/gP1sQ1EqRUf\n69kaVbaZAgMBAAECggEAAciLm8mhcL9WvQTg7xbTaAp7Kt2tr18Bl3SvLAkHF3Oy\nTk+UoZOhLk8+zFtQzlBAwg8pd8vbJbyFZvnWTCRhc3zj9WoYLw3QfJ1L7hzasqt7\nXnqFEzxnQEB+fwV2dxHBPtP5gLa7oPvLoVt41dSXbj7ZiwpbkI5boysPoXbeY8MN\nUcYtIIYf149RP+7liOzEN5BG62cSiut9HJhKlo70czEIP+nXc7DY9U94qeBwvLUd\nZyO+lvkB0iAHrAHUdcVQVWwr+gazCg7EaScMmPmydapYW0ZGlo8Z6mby2If//oCG\nZFPPpDZ5BuZx1nH6Asn0al9GcBFEpVhSTcdumThGkwKBgQDtkVBytbQe5sgpidwO\nBI9sCrYEpMTIbLTVsEg929NXIdp5NQoP3OVJhVXUbBpUCQKZgLtEFAhSLeLN7eBI\n089ytPwmjfM+4hJs1h9Qbd13Jol1PfOKO4q824JRdYMXZpGoXb/fsyWaZX2WbzeO\nKkSomMufSE/9qrLdc4AICzEViwKBgQC7R6BlYx1Z08jEwCgXCpUFTazlFgXcwkZy\nAbWalZ/KeUkkHu13jqkv3XEKeUovv0A0RE5Jg1DZBI/rUKTV1BuY6bs/Ju4DzzfV\nHZ6Yoiml8jsIpkp4kR+jKXS63uxucBe3Sub/dfYRIdn4JVUf2IKdLet4iC9+JImr\njIumLRLQ6wKBgC7YV6+26sSpJ1EhkRXmik14szmpL/CBlwsIDsa74SmuUEFUVx6X\npVLhCvKvOmXVvQB95O9gr99ckvuea3qQ4bgxvgLwPMXqmE2Dz3rxnxkOrU5EIBDi\n+tGQy1q6vFXR8OjtS5eV4NVYK/KNDbxn01AXiRdoj/VqQojubJGpe01PAoGBAJL4\nX/iQ8sy2tj0pa4zBgjcaQQ+627jmQXBgxQreVvsHeY2+M696pm1ow7hrfPvBg/pA\njIuGYSEeQm9x5xnjjhDPhGHIBEu7B97YksjHohWX5hognhrGEOTzuKaaIUN99i6i\numtKQGQrg6oIaihGuiHtkngRr+u3cs7Myh8MClMnAoGAVcjaA5mkV0CxEWx9IQbX\nVQ2jIJwEB5dnVLrqwt+N8Tk5KOmqCTje9d6f8+n9OrJ3pAtMwt7CZTvyt3FxZb06\n6jr9L4wfqpikRb4F+uTblUo03a90fQ0Y4S4J3uH/uNpHzWbrqU1rV1cJcC+J1Dvc\nggzlt8hzIg/NTmCFNWFawck=\n-----END PRIVATE KEY-----\n",
+  "client_email": "tampre@tampre.iam.gserviceaccount.com",
+  "client_id": "107211330647696608325",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tampre%40tampre.iam.gserviceaccount.com"
+}
+BUCKET_NAME = "tampre_profile_images"
 
-class FriendInfoCreate(generics.ListCreateAPIView):
-    queryset = FriendInfo.objects.all()
-    serializer_class = FriendInfoSerializer
+def upload_profile_image(image, fileName):
+    """プロフィール画像をgcpのストレージにアップロードしURLを取得"""
+    credentials = service_account.Credentials.from_service_account_info(SERVICE_ACCOUNT_INFO)
+    client = storage.Client(
+        credentials=credentials,
+        project=credentials.project_id
+    )
+    bucket = client.get_bucket(BUCKET_NAME)
+    blob = bucket.blob(fileName)
+    blob.upload_from_file(image)
+    url = blob.public_url
+    if isinstance(url, six.binary_type):
+        url = url.decode('utf-8')
+    return url
 
 class UserInfoAPIView(views.APIView):
     """ ユーザモデルの登録、修正、削除 """
@@ -26,6 +51,12 @@ class UserInfoAPIView(views.APIView):
         
     def post(self, request, *args, **kwargs):
         """ ユーザモデル登録APIに対応するハンドラメソッド """
+        # 画像のBase64をdecode
+        image = base64.b64decode(request.data['profileImageBase64'])
+        # 画像をアップロード
+        url = upload_profile_image(image, request.data['userId'])
+        # 画像のurlを付与
+        request.data['profileImageURL'] = url
         # シリアライズオブジェクトを作成
         serializer = UserInfoSerializer(data=request.data)
         # バリデーションを実行

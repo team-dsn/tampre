@@ -130,18 +130,3 @@ public_ip = out.decode('ascii').replace("\n", "")
 
 # ローカルで開発する際は、'localhost'や'127.0.0.1'を追加する
 ALLOWED_HOSTS = [public_ip]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-
-GS_BUCKET_NAME = 'tampre_profile_images'
-
-from google.oauth2 import service_account
-
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, 'tampre-2fa59c6736e1.json'),
-)
