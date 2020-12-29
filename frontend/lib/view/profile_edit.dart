@@ -8,26 +8,32 @@ import 'package:tampre/view/component/global.dart' as global;
 import 'component/user.dart';
 
 class ProfileEdit extends StatelessWidget {
-  ProfileEdit({this.myUser});
   final User myUser;
+  final userIdEditingController = TextEditingController();
+  final userNameEditingController = TextEditingController();
+  final birthdayEditingController = TextEditingController();
+  final wishListUrlEditingController = TextEditingController();
+  bool isEditing;
 
+  ProfileEdit({this.myUser}){
+    this.isEditing = this.myUser != null;
+  }
+
+  Future<String> _setCurrentSetting() async {
+    if (this.isEditing) {
+      this.userIdEditingController.text = await User.getMyUserId();
+      this.userNameEditingController.text = this.myUser.userName;
+      this.birthdayEditingController.text =
+        '${this.myUser.birthday.month}/${this.myUser.birthday.day}';
+        wishListUrlEditingController.text = this.myUser.wishListUrl;
+    }
+    return 'Success';
+  }
   @override
   Widget build(BuildContext context) {
-      final userNameEdittingController = TextEditingController();
-      final birthdayEdittingController = TextEditingController();
-      final wishListUrlEdittingController = TextEditingController();
-
-      bool isEditing = myUser != null;
-      if (isEditing){
-        userNameEdittingController.text = myUser.userName;
-        birthdayEdittingController.text =
-        '${myUser.birthday.month}/${myUser.birthday.day}';
-        wishListUrlEdittingController.text = myUser.wishListUrl;
-
-      };
-
-
-    return ChangeNotifierProvider<ProfileEditModel>(
+    return FutureBuilder<String>(
+      future: _setCurrentSetting(),
+      builder: (context, AsyncSnapshot<String> snapshot) { return ChangeNotifierProvider<ProfileEditModel>(
       create: (_) => ProfileEditModel(),
       child: Scaffold(
         appBar: AppBar(
@@ -45,10 +51,11 @@ class ProfileEdit extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              onPressed:(){
-                global.myUser.userName = userNameEdittingController.text;
-                //global.myUser.birthday = birthdayEdittingController as DateTime ;
-                global.myUser.wishListUrl = wishListUrlEdittingController.text;
+              onPressed:() {
+                User.setMyUserId(userIdEditingController.text);
+                global.myUser.userName = userNameEditingController.text;
+                //global.myUser.birthday = birthdayEditingController as DateTime ;
+                global.myUser.wishListUrl = wishListUrlEditingController.text;
                 Navigator.pop(context);
               },
             )
@@ -65,10 +72,40 @@ class ProfileEdit extends StatelessWidget {
                       .size
                       .width * 0.8,
                   child: TextField(
-                      controller: userNameEdittingController,
+                      controller: userIdEditingController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         contentPadding: EdgeInsets.all(5),
+                        hintText: "ユーザーID",
+                        hintStyle: TextStyle(fontSize: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.05,), 
+                      ),
+                      style: TextStyle(
+                        fontSize: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.08,
+                      )
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.8,
+                  child: TextField(
+                      controller: userNameEditingController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.all(5),
+                        hintText: "ユーザー名",
+                        hintStyle: TextStyle(fontSize: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.05,), 
                       ),
                       style: TextStyle(
                         fontSize: MediaQuery
@@ -129,7 +166,7 @@ class ProfileEdit extends StatelessWidget {
                                     .size
                                     .width * 0.10,
                                 child: TextField(
-                                  controller: birthdayEdittingController,
+                                  controller: birthdayEditingController,
                                   style: TextStyle(fontSize: MediaQuery
                                       .of(context)
                                       .size
@@ -157,7 +194,7 @@ class ProfileEdit extends StatelessWidget {
                               .size
                               .width * 0.10,
                           child: TextField(
-                            controller: wishListUrlEdittingController,
+                            controller: wishListUrlEditingController,
                             style: TextStyle(fontSize: MediaQuery
                                 .of(context)
                                 .size
@@ -189,6 +226,8 @@ class ProfileEdit extends StatelessWidget {
           },
         ),
       ),
+    );
+    }
     );
   }
 }
