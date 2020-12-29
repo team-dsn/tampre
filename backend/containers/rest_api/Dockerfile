@@ -4,3 +4,4 @@ RUN mkdir /django_rest_api
 WORKDIR /django_rest_api
 ADD . /django_rest_api
 RUN pip install -r django_rest_api/requirements.txt
+RUN pip install django-storages[google]

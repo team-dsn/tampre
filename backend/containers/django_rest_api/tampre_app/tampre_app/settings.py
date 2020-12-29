@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     'corsheaders.middleware.CorsMiddleware',#←追加
+    'corsheaders.middleware.CorsMiddleware',#←追加
 ]
 
 ROOT_URLCONF = 'tampre_app.urls'
@@ -130,3 +130,20 @@ public_ip = out.decode('ascii').replace("\n", "")
 
 # ローカルで開発する際は、'localhost'や'127.0.0.1'を追加する
 ALLOWED_HOSTS = [public_ip]
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+# 一旦澤のgcpで実験
+GS_BUCKET_NAME = 'hsawa0709_test_storage'
+
+from google.oauth2 import service_account
+
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'gcp_test.json'),
+)
